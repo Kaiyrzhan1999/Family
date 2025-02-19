@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спасибо за отзыв</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            background-color: white;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .top-panel {
+            background: linear-gradient(45deg, #FF0000, #FFA500, #008000, #0000FF);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 15vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .top-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+        .back-button {
+            position: absolute;
+            left: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        .logo {
+            height: 100%;
+            width: auto;
+            max-height: 15vh;
+            position: relative;
+            z-index: 1;
+            filter: 
+                drop-shadow(0 0 2px rgba(255, 255, 255, 0.7))
+                drop-shadow(0 0 5px rgba(255, 165, 0, 0.5))
+                drop-shadow(0 0 10px rgba(255, 69, 0, 0.3))
+                drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+            transition: all 0.3s ease;
+        }
+        .logo:hover {
+            transform: translateY(-5px);
+            filter: 
+                drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
+                drop-shadow(0 0 7px rgba(255, 165, 0, 0.6))
+                drop-shadow(0 0 12px rgba(255, 69, 0, 0.4))
+                drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
+        }
+        .content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+            justify-content: space-between;
+        }
+        .message {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .social-button {
+            width: 90%;
+            max-width: 300px;
+            height: 50px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        .social-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.5s;
+        }
+        .social-button:hover::before {
+            left: 100%;
+        }
+        .social-button img {
+            height: 70%;
+            margin-right: 10px;
+        }
+        .social-button span {
+            color: white;
+            font-weight: bold;
+        }
+        .social-button.gis {
+            background-color: #4CAF50;
+        }
+        .social-button.gis:hover {
+            background-color: #45a049;
+        }
+        .social-button.instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+        }
+        .social-button.tiktok {
+            background-color: #000000;
+        }
+        .ok-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 90%;
+            max-width: 300px;
+            margin: 10px auto;
+        }
+
+        @media (max-width: 768px) {
+            .top-panel {
+                height: 10vh;
+            }
+            .logo {
+                max-height: 10vh;
+            }
+            .message {
+                font-size: 14px;
+            }
+            .social-button, .ok-button {
+                width: 100%;
+                height: 40px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top-panel">
+            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+            <img src="icon.png" alt="Логотип" class="logo">
+        </div>
+        <div class="content">
+            <div class="message">
+                <p>Мы только что поделились вашим отзывом с властями.</p>
+                <p>Пожалуйста, дайте нам знать, как все прошло в следующий раз.</p>
+                <p>Спасибо, что помогаете нам улучшить качество обслуживания клиентов.</p>
+            </div>
+            <div class="social-buttons">
+                <button class="social-button gis" onclick="openSocialLink('2gis')">
+                    <img src="png-klev-club-yozi-p-2-gis-logotip-png-6.png" alt="2GIS">
+                    <span>2GIS</span>
+                </button>
+                <button class="social-button instagram" onclick="openSocialLink('instagram')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram">
+                    <span>Instagram</span>
+                </button>
+                <button class="social-button tiktok" onclick="openSocialLink('tiktok')">
+                    <img src="https://sf-tb-sg.ibytedtos.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png" alt="TikTok">
+                    <span>TikTok</span>
+                </button>
+                <button class="ok-button" onclick="openIndexPage()">На главную</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.location.href = 'feedback_contact.html';
+        }
+
+        function openIndexPage() {
+            window.location.href = 'index.html';
+        }
+
+        function openSocialLink(platform) {
+            const urls = {
+                '2gis': 'https://2gis.ru/your-page',
+                'instagram': 'https://www.instagram.com/your-page',
+                'tiktok': 'https://www.tiktok.com/@your-page'
+            };
+            window.open(urls[platform], '_blank');
+        }
+    </script>
+</body>
+</html>
