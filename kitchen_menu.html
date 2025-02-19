@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню кухни</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        .menu-item {
+            margin: 10px 0;
+            width: 100%;
+            max-width: 800px;
+        }
+        .menu-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        @media (max-width: 600px) {
+            .menu-container {
+                padding: 5px;
+            }
+            .menu-item {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <!-- Изображения меню кухни будут добавлены здесь с помощью JavaScript -->
+    </div>
+
+    <script>
+        const kitchenMenuImages = Array.from({length: 56}, (_, i) => `${i}.jpg`);
+
+        const menuContainer = document.querySelector('.menu-container');
+
+        kitchenMenuImages.forEach(image => {
+            const menuItem = document.createElement('div');
+            menuItem.className = 'menu-item';
+            menuItem.innerHTML = `<img src="${image}" alt="Меню кухни" loading="lazy">`;
+            menuContainer.appendChild(menuItem);
+        });
+    </script>
+</body>
+</html>
