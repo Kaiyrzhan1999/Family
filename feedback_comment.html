@@ -246,24 +246,101 @@
             display: none;
         }
 
+Понял вас. Давайте внесем эти изменения. Вот обновленный код с учетом ваших пожеланий:
+file.html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оставьте комментарий</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* ... (предыдущие стили остаются без изменений) ... */
+
         .photo-preview-container {
-            position: relative;
-            display: inline-block;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
         }
 
-        .remove-photo {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background-color: red;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            text-align: center;
-            line-height: 20px;
+        .photo-preview {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #4CAF50;
             cursor: pointer;
-            font-size: 12px;
+        }
+
+        .photo-options {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding: 10px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .photo-option {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #4CAF50;
+            font-size: 16px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
+
+        .photo-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1001;
+            display: none;
+        }
+
+        .photo-modal img {
+            max-width: 100%;
+            max-height: 70vh;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .photo-modal button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .photo-modal .delete {
+            background-color: #ff4444;
+            color: white;
+        }
+
+        .photo-modal .close {
+            background-color: #cccccc;
         }
     </style>
 </head>
@@ -278,43 +355,127 @@
             <div class="comment-container">
                 <textarea class="comment-box" placeholder="Комментарий оставьте здесь" id="commentText"></textarea>
                 <i class="fas fa-camera camera-icon" onclick="togglePhotoOptions()"></i>
-                <div class="photo-options" id="photoOptions">
-                    <a href="#" class="photo-option" onclick="uploadPhoto()">Загрузить фото</a>
-                    <a href="#" class="photo-option" onclick="takePhoto()">Снять фото</a>
-                </div>
-                <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoUpload(event)">
             </div>
+            <div class="photo-preview-container" id="photoPreviewContainer"></div>
             <button class="continue-btn" onclick="saveCommentAndContinue()">Продолжить</button>
         </div>
     </div>
 
-    <!-- Модальное окно для съемки фото -->
-    <div id="cameraModal" class="modal">
-        <div class="modal-content">
-            <video id="videoElement" autoplay></video>
-            <img id="capturedImage" alt="Captured photo" style="display:none;">
-            <div class="camera-controls">
-                <button id="switchCameraButton" class="camera-button secondary">
-                    <i class="fas fa-sync-alt"></i>
-                </button>
-                <button id="captureButton" class="camera-button">
-                    <i class="fas fa-camera"></i>
-                </button>
-                <button id="closeButton" class="camera-button secondary">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
+    <div class="overlay" id="overlay" onclick="closePhotoOptions()"></div>
+    <div class="photo-options" id="photoOptions">
+        <a href="#" class="photo-option" onclick="uploadPhoto()">Загрузить фото</a>
+        <a href="#" class="photo-option" onclick="takePhoto()">Снять фото</a>
+    </div>
+
+    <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)">
+
+    <div class="photo-modal" id="photoModal">
+        <img id="modalImage" src="" alt="Фото">
+        <button class="delete" onclick="deletePhoto()">Удалить</button>
+        <button class="close" onclick="closePhotoModal()">Закрыть</button>
     </div>
 
     <script>
-        function goBack() {
-            window.history.back();
+        let photos = [];
+        let currentPhotoIndex = -1;
+
+        function togglePhotoOptions() {
+            const options = document.getElementById('photoOptions');
+            const overlay = document.getElementById('overlay');
+            options.style.display = options.style.display === 'none' ? 'block' : 'none';
+            overlay.style.display = overlay.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function closePhotoOptions() {
+            document.getElementById('photoOptions').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function uploadPhoto() {
+            document.getElementById('photoInput').click();
+            closePhotoOptions();
+        }
+
+        function takePhoto() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    const video = document.createElement('video');
+                    video.srcObject = stream;
+                    video.play();
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = 640;
+                    canvas.height = 480;
+
+                    setTimeout(() => {
+                        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                        stream.getTracks().forEach(track => track.stop());
+                        addPhotoPreview(canvas.toDataURL('image/jpeg'));
+                    }, 300);
+                })
+                .catch(function(err) {
+                    console.log("An error occurred: " + err);
+                });
+            closePhotoOptions();
+        }
+
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    addPhotoPreview(e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addPhotoPreview(src) {
+            const container = document.getElementById('photoPreviewContainer');
+            const img = document.createElement('img');
+            img.src = src;
+            img.className = 'photo-preview';
+            img.onclick = () => showPhotoModal(photos.length);
+            container.appendChild(img);
+            photos.push(src);
+        }
+
+        function showPhotoModal(index) {
+            currentPhotoIndex = index;
+            const modal = document.getElementById('photoModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = photos[index];
+            modal.style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePhotoModal() {
+            document.getElementById('photoModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function deletePhoto() {
+            photos.splice(currentPhotoIndex, 1);
+            updatePhotoPreview();
+            closePhotoModal();
+        }
+
+        function updatePhotoPreview() {
+            const container = document.getElementById('photoPreviewContainer');
+            container.innerHTML = '';
+            photos.forEach((photo, index) => {
+                const img = document.createElement('img');
+                img.src = photo;
+                img.className = 'photo-preview';
+                img.onclick = () => showPhotoModal(index);
+                container.appendChild(img);
+            });
         }
 
         function saveCommentAndContinue() {
             const comment = document.getElementById('commentText').value;
             localStorage.setItem('feedbackComment', comment);
+            localStorage.setItem('feedbackPhotos', JSON.stringify(photos));
             window.location.href = 'feedback_contact.html';
         }
 
@@ -323,125 +484,11 @@
             if (savedComment) {
                 document.getElementById('commentText').value = savedComment;
             }
+
+            const savedPhotos = JSON.parse(localStorage.getItem('feedbackPhotos') || '[]');
+            photos = savedPhotos;
+            updatePhotoPreview();
         });
-
-        window.onload = function() {
-            console.log('Page loaded. Current localStorage:', localStorage);
-        }
-
-        function togglePhotoOptions() {
-            const options = document.getElementById('photoOptions');
-            options.style.display = options.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function uploadPhoto() {
-            document.getElementById('photoInput').click();
-        }
-
-        let stream;
-        let facingMode = "user";
-
-        function takePhoto() {
-            const modal = document.getElementById('cameraModal');
-            const video = document.getElementById('videoElement');
-            const captureButton = document.getElementById('captureButton');
-            const switchCameraButton = document.getElementById('switchCameraButton');
-            const closeButton = document.getElementById('closeButton');
-            const capturedImage = document.getElementById('capturedImage');
-
-            modal.style.display = 'block';
-            startCamera();
-
-            captureButton.onclick = capturePhoto;
-            switchCameraButton.onclick = switchCamera;
-            closeButton.onclick = closeCamera;
-        }
-
-        function startCamera() {
-            const video = document.getElementById('videoElement');
-            navigator.mediaDevices.getUserMedia({ video: { facingMode: facingMode } })
-                .then(function(mediaStream) {
-                    stream = mediaStream;
-                    video.srcObject = stream;
-                })
-                .catch(function(error) {
-                    console.error('Ошибка доступа к камере:', error);
-                });
-        }
-
-        function capturePhoto() {
-            const video = document.getElementById('videoElement');
-            const capturedImage = document.getElementById('capturedImage');
-            const canvas = document.createElement('canvas');
-
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            canvas.getContext('2d').drawImage(video, 0, 0);
-            capturedImage.src = canvas.toDataURL('image/jpeg');
-            
-            video.style.display = 'none';
-            capturedImage.style.display = 'block';
-            
-            document.getElementById('captureButton').innerHTML = '<i class="fas fa-redo"></i>';
-            document.getElementById('captureButton').onclick = retakePhoto;
-        }
-
-        function retakePhoto() {
-            const video = document.getElementById('videoElement');
-            const capturedImage = document.getElementById('capturedImage');
-            
-            video.style.display = 'block';
-            capturedImage.style.display = 'none';
-            
-            document.getElementById('captureButton').innerHTML = '<i class="fas fa-camera"></i>';
-            document.getElementById('captureButton').onclick = capturePhoto;
-        }
-
-        function switchCamera() {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-            facingMode = facingMode === "user" ? "environment" : "user";
-            startCamera();
-        }
-
-        function closeCamera() {
-            const modal = document.getElementById('cameraModal');
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-            modal.style.display = 'none';
-            retakePhoto();
-        }
-
-        function savePhoto() {
-            const capturedImage = document.getElementById('capturedImage');
-            const photoPreview = document.getElementById('photoPreview');
-            
-            photoPreview.src = capturedImage.src;
-            photoPreview.style.display = 'block';
-            
-            closeCamera();
-        }
-
-        function handlePhotoUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const photoPreview = document.getElementById('photoPreview');
-                    photoPreview.src = e.target.result;
-                    photoPreview.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function removePhoto() {
-            const photoPreview = document.getElementById('photoPreview');
-            photoPreview.src = '';
-            photoPreview.style.display = 'none';
-        }
     </script>
 </body>
 </html>
