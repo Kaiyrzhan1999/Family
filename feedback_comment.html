@@ -21,39 +21,39 @@
             width: 100%;
         }
 
-    .top-panel {
-        background: linear-gradient(45deg, #FF0000, #FFA500, #008000, #0000FF);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-        height: 3cm;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
+        .top-panel {
+            background: linear-gradient(45deg, #FF0000, #FFA500, #008000, #0000FF);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 3cm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
 
-    @keyframes gradientBG {
-        0% {
-            background-position: 0% 50%;
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
 
-    .top-panel::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-        z-index: 0;
-    }
+        .top-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
 
         .back-button {
             position: absolute;
@@ -66,27 +66,27 @@
             z-index: 1;
         }
 
-    .logo {
-        height: 3cm;
-        width: auto;
-        position: relative;
-        z-index: 1;
-        filter: 
-            drop-shadow(0 0 2px rgba(255, 255, 255, 0.7))
-            drop-shadow(0 0 5px rgba(255, 165, 0, 0.5))
-            drop-shadow(0 0 10px rgba(255, 69, 0, 0.3))
-            drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
-        transition: all 0.3s ease;
-    }
+        .logo {
+            height: 3cm;
+            width: auto;
+            position: relative;
+            z-index: 1;
+            filter: 
+                drop-shadow(0 0 2px rgba(255, 255, 255, 0.7))
+                drop-shadow(0 0 5px rgba(255, 165, 0, 0.5))
+                drop-shadow(0 0 10px rgba(255, 69, 0, 0.3))
+                drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+            transition: all 0.3s ease;
+        }
 
-    .logo:hover {
-        transform: translateY(-5px);
-        filter: 
-            drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
-            drop-shadow(0 0 7px rgba(255, 165, 0, 0.6))
-            drop-shadow(0 0 12px rgba(255, 69, 0, 0.4))
-            drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
-    }
+        .logo:hover {
+            transform: translateY(-5px);
+            filter: 
+                drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
+                drop-shadow(0 0 7px rgba(255, 165, 0, 0.6))
+                drop-shadow(0 0 12px rgba(255, 69, 0, 0.4))
+                drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
+        }
 
         .main-content {
             flex: 1;
@@ -104,9 +104,15 @@
             color: #333;
         }
 
-        .comment-box {
+        .comment-container {
+            position: relative;
             width: 100%;
             max-width: 400px;
+        }
+
+        .comment-box {
+            width: 100%;
+            max-width: 360px;
             height: 150px;
             padding: 15px;
             font-size: 1rem;
@@ -124,6 +130,41 @@
 
         .comment-box::placeholder {
             color: #999;
+        }
+
+        .camera-icon {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            font-size: 1.5rem;
+            color: #4CAF50;
+            cursor: pointer;
+        }
+
+        .photo-options {
+            display: none;
+            position: absolute;
+            right: 10px;
+            bottom: 50px;
+            background-color: white;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .photo-option {
+            display: block;
+            padding: 5px 10px;
+            text-decoration: none;
+            color: #4CAF50;
+        }
+
+        .photo-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        #photoInput {
+            display: none;
         }
 
         .continue-btn {
@@ -148,18 +189,81 @@
             transform: scale(0.98);
         }
 
-        @media (max-width: 600px) {
-            .main-text {
-                font-size: 1.1rem;
-            }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
 
-            .comment-box {
-                font-size: 0.9rem;
-            }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 10px;
+        }
 
-            .continue-btn {
-                font-size: 1rem;
-            }
+        #videoElement, #capturedImage {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .camera-controls {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .camera-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .camera-button.secondary {
+            background-color: #ccc;
+        }
+
+        #photoPreview {
+            max-width: 100px;
+            max-height: 100px;
+            margin-top: 10px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .photo-preview-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .remove-photo {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -171,10 +275,38 @@
         </div>
         <div class="main-content">
             <p class="main-text">ВАШИ КОММЕНТАРИИ МНОГО ЗНАЧАТ ДЛЯ НАС!</p>
-            <textarea class="comment-box" placeholder="Комментарий оставьте здесь" id="commentText"></textarea>
+            <div class="comment-container">
+                <textarea class="comment-box" placeholder="Комментарий оставьте здесь" id="commentText"></textarea>
+                <i class="fas fa-camera camera-icon" onclick="togglePhotoOptions()"></i>
+                <div class="photo-options" id="photoOptions">
+                    <a href="#" class="photo-option" onclick="uploadPhoto()">Загрузить фото</a>
+                    <a href="#" class="photo-option" onclick="takePhoto()">Снять фото</a>
+                </div>
+                <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoUpload(event)">
+            </div>
             <button class="continue-btn" onclick="saveCommentAndContinue()">Продолжить</button>
         </div>
     </div>
+
+    <!-- Модальное окно для съемки фото -->
+    <div id="cameraModal" class="modal">
+        <div class="modal-content">
+            <video id="videoElement" autoplay></video>
+            <img id="capturedImage" alt="Captured photo" style="display:none;">
+            <div class="camera-controls">
+                <button id="switchCameraButton" class="camera-button secondary">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button id="captureButton" class="camera-button">
+                    <i class="fas fa-camera"></i>
+                </button>
+                <button id="closeButton" class="camera-button secondary">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         function goBack() {
             window.history.back();
@@ -186,19 +318,130 @@
             window.location.href = 'feedback_contact.html';
         }
 
-        // Восстановление комментария при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             const savedComment = localStorage.getItem('feedbackComment');
             if (savedComment) {
                 document.getElementById('commentText').value = savedComment;
             }
-
-// Добавьте это на страницы feedback_reason.html и feedback_comment.html
-window.onload = function() {
-    console.log('Page loaded. Current localStorage:', localStorage);
-}
-
         });
+
+        window.onload = function() {
+            console.log('Page loaded. Current localStorage:', localStorage);
+        }
+
+        function togglePhotoOptions() {
+            const options = document.getElementById('photoOptions');
+            options.style.display = options.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function uploadPhoto() {
+            document.getElementById('photoInput').click();
+        }
+
+        let stream;
+        let facingMode = "user";
+
+        function takePhoto() {
+            const modal = document.getElementById('cameraModal');
+            const video = document.getElementById('videoElement');
+            const captureButton = document.getElementById('captureButton');
+            const switchCameraButton = document.getElementById('switchCameraButton');
+            const closeButton = document.getElementById('closeButton');
+            const capturedImage = document.getElementById('capturedImage');
+
+            modal.style.display = 'block';
+            startCamera();
+
+            captureButton.onclick = capturePhoto;
+            switchCameraButton.onclick = switchCamera;
+            closeButton.onclick = closeCamera;
+        }
+
+        function startCamera() {
+            const video = document.getElementById('videoElement');
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: facingMode } })
+                .then(function(mediaStream) {
+                    stream = mediaStream;
+                    video.srcObject = stream;
+                })
+                .catch(function(error) {
+                    console.error('Ошибка доступа к камере:', error);
+                });
+        }
+
+        function capturePhoto() {
+            const video = document.getElementById('videoElement');
+            const capturedImage = document.getElementById('capturedImage');
+            const canvas = document.createElement('canvas');
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            capturedImage.src = canvas.toDataURL('image/jpeg');
+            
+            video.style.display = 'none';
+            capturedImage.style.display = 'block';
+            
+            document.getElementById('captureButton').innerHTML = '<i class="fas fa-redo"></i>';
+            document.getElementById('captureButton').onclick = retakePhoto;
+        }
+
+        function retakePhoto() {
+            const video = document.getElementById('videoElement');
+            const capturedImage = document.getElementById('capturedImage');
+            
+            video.style.display = 'block';
+            capturedImage.style.display = 'none';
+            
+            document.getElementById('captureButton').innerHTML = '<i class="fas fa-camera"></i>';
+            document.getElementById('captureButton').onclick = capturePhoto;
+        }
+
+        function switchCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            facingMode = facingMode === "user" ? "environment" : "user";
+            startCamera();
+        }
+
+        function closeCamera() {
+            const modal = document.getElementById('cameraModal');
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            modal.style.display = 'none';
+            retakePhoto();
+        }
+
+        function savePhoto() {
+            const capturedImage = document.getElementById('capturedImage');
+            const photoPreview = document.getElementById('photoPreview');
+            
+            photoPreview.src = capturedImage.src;
+            photoPreview.style.display = 'block';
+            
+            closeCamera();
+        }
+
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const photoPreview = document.getElementById('photoPreview');
+                    photoPreview.src = e.target.result;
+                    photoPreview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removePhoto() {
+            const photoPreview = document.getElementById('photoPreview');
+            photoPreview.src = '';
+            photoPreview.style.display = 'none';
+        }
     </script>
 </body>
 </html>
