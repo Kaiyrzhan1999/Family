@@ -80,19 +80,27 @@
             flex-direction: column;
             padding: 20px;
             text-align: center;
-            justify-content: space-between;
         }
+
         .message {
             font-size: 16px;
             line-height: 1.5;
             margin-bottom: 20px;
         }
+
+        .social-buttons-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 10cm; /* Это поднимет кнопки на 5 см вверх */
+        }
+
         .social-buttons {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            margin-top: 0.5cm;
         }
         .social-button {
             width: 90%;
@@ -166,11 +174,15 @@
             }
             .message {
                 font-size: 14px;
+                margin-bottom: -3cm; /* Меньший отступ для мобильных устройств */
             }
             .social-button, .ok-button {
                 width: 100%;
                 height: 40px;
                 font-size: 14px;
+            }
+            .social-buttons-container {
+                padding-bottom: 3cm; /* Меньший отступ для мобильных устройств */
             }
         }
     </style>
@@ -187,20 +199,22 @@
                 <p>Пожалуйста, дайте нам знать, как все прошло в следующий раз.</p>
                 <p>Спасибо, что помогаете нам улучшить качество обслуживания клиентов.</p>
             </div>
-            <div class="social-buttons">
-                <button class="social-button gis" onclick="openSocialLink('2gis')">
-                    <img src="png-klev-club-yozi-p-2-gis-logotip-png-6.png" alt="2GIS">
-                    <span>2GIS</span>
-                </button>
-                <button class="social-button instagram" onclick="openSocialLink('instagram')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram">
-                    <span>Instagram</span>
-                </button>
-                <button class="social-button tiktok" onclick="openSocialLink('tiktok')">
-                    <img src="https://sf-tb-sg.ibytedtos.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png" alt="TikTok">
-                    <span>TikTok</span>
-                </button>
-                <button class="ok-button" onclick="openIndexPage()">На главную</button>
+            <div class="social-buttons-container">
+                <div class="social-buttons">
+                    <button class="social-button gis" onclick="openSocialLink('2gis')">
+                        <img src="png-klev-club-yozi-p-2-gis-logotip-png-6.png" alt="2GIS">
+                        <span>2GIS</span>
+                    </button>
+                    <button class="social-button instagram" onclick="openSocialLink('instagram')">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram">
+                        <span>Instagram</span>
+                    </button>
+                    <button class="social-button tiktok" onclick="openSocialLink('tiktok')">
+                        <img src="https://sf-tb-sg.ibytedtos.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png" alt="TikTok">
+                        <span>TikTok</span>
+                    </button>
+                    <button class="ok-button" onclick="openIndexPage()">На главную</button>
+                </div>
             </div>
         </div>
     </div>
