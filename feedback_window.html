@@ -106,40 +106,40 @@
             margin: 0.2cm 0;
         }
 
-        .floor-select, .dropbtn {
-            width: 100%;
-            max-width: 7cm;
-            padding: 15px;
-            font-size: 18px;
-            border: 5px solid #ccc;
-            background-color: white;
-            cursor: pointer;
-            text-align: left;
-            border-radius: 20px;
-            margin-bottom: 0cm;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 10px top 50%;
-        }
+.floor-select, .dropbtn {
+    width: 100%;
+    max-width: 7cm;
+    padding: 15px;
+    font-size: 18px;
+    border: 5px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 20px;
+    margin-bottom: 0.5cm;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+}
 
-        .floor-select::-moz-focus-inner {
-            border: 0;
-        }
+.floor-select::-moz-focus-inner {
+    border: 0;
+}
 
-        .floor-select::-ms-expand {
-            display: none;
-        }
+.floor-select::-ms-expand {
+    display: none;
+}
 
-        .dropdown {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            margin: 0.5cm 0;
-        }
+.dropdown, .floor-select-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0.5cm 0;
+}
 
         .dropdown-content {
             display: none;
@@ -188,17 +188,30 @@
             background-color: #45a049;
         }
 
-        @media (max-width: 600px) {
-            .main-text {
-                font-size: 20px;
-            }
-            .sub-text {
-                font-size: 14px;
-            }
-            .floor-select, .dropbtn, .continue-btn {
-                font-size: 16px;
-            }
-        }
+@media (max-width: 600px) {
+    .floor-select, .dropbtn {
+        font-size: 16px;
+        padding: 12px;
+        max-width: 90%;
+    }
+
+    .main-text {
+        font-size: 20px;
+    }
+
+    .sub-text {
+        font-size: 14px;
+    }
+
+    .continue-btn {
+        font-size: 16px;
+        max-width: 90%;
+    }
+
+    .dropdown-content {
+        max-width: 90%;
+    }
+}
     </style>
 </head>
 <body>
@@ -210,13 +223,17 @@
         <div class="main-content">
             <p class="main-text">Информация, необходимая для достижения лучших результатов по вашим отзывам</p>
             <p class="sub-text">Выбор номера столика</p>
-            <select class="floor-select" id="floorSelect">
-                <option value="">Сначала выберите этаж</option>
-                <option value="1">1 этаж</option>
-                <option value="2">2 этаж</option>
-                <option value="vip0">VIP 0 этаж</option>
-                <option value="vip2">VIP 2 этаж</option>
-            </select>
+
+<div class="floor-select-container">
+    <select class="floor-select" id="floorSelect">
+        <option value="">Сначала выберите этаж</option>
+        <option value="1">1 этаж</option>
+        <option value="2">2 этаж</option>
+        <option value="vip0">VIP 0 этаж</option>
+        <option value="vip2">VIP 2 этаж</option>
+    </select>
+</div>
+
             <div class="dropdown">
                 <button class="dropbtn">Выберите номер столика</button>
                 <div class="dropdown-content" id="tableDropdown">
