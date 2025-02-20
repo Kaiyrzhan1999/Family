@@ -30,6 +30,24 @@
             height: auto;
             display: block;
         }
+        .close-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            color: black;
+            border: none;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            z-index: 1000;
+        }
         @media (max-width: 600px) {
             .menu-container {
                 padding: 5px;
@@ -41,6 +59,7 @@
     </style>
 </head>
 <body>
+    <a href="menu.html" class="close-button">×</a>
     <div class="menu-container">
         <!-- Изображения меню кухни будут добавлены здесь с помощью JavaScript -->
     </div>
