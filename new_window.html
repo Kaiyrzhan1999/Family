@@ -219,9 +219,9 @@
                     <i class="far fa-grin-stars"></i>
                 </button>
             </div>
-            <div id="rating-text">Выберите оценку</div>
+            <div id="rating-text">Как вы себя чувствуете? Пожалуйста, оцените нас!</div>
         </div>
-        <button class="rate-button" disabled onclick="openFeedbackWindow()">Оценить</button>
+        <button class="rate-button" disabled onclick="openFeedbackWindow()">ОТПРАВИТЬ ОЦЕНКУ</button>
     </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -232,10 +232,10 @@
         let selectedRating = null;
 
             const ratingTexts = {
-                1: "Плохо",
-                2: "Нормально",
-                3: "Хорошо",
-                4: "Идеально"
+                1: "Это был плохой опыт!",
+                2: "Были проблемы..",
+                3: "Могу сказать, что все было нормально..",
+                4: "Отличное обслуживание, спасибо!"
             };
 
             const smileyIcons = {
