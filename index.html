@@ -76,7 +76,6 @@
             background-color: #e0e0e0;
         }
 
-
         @media (max-width: 600px) {
             .animated-text {
                 font-size: 24px;
@@ -101,6 +100,13 @@
         <button class="dialog-button" onclick="openMenu()">Меню</button>
         <button class="dialog-button" onclick="openNewWindow()">Отзывы</button>
     </div>
+    
+    <!-- Add audio element -->
+    <audio id="backgroundMusic" loop>
+        <source src="WhatsApp Video 2025-02-20 at 19.07.34.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <script>
         const dialog = document.getElementById('dialog');
         let isDialogOpen = false;
@@ -124,6 +130,29 @@
         function openMenu() {
             window.location.href = 'photo.html';
         }
+
+        // Attempt to play music automatically when the page loads
+        window.addEventListener('load', function() {
+            var music = document.getElementById('backgroundMusic');
+            music.play().then(function() {
+                console.log('Music started playing automatically.');
+            }).catch(function(error) {
+                console.log('Autoplay was prevented. User interaction may be required to play the audio.');
+                console.error(error);
+            });
+        });
+
+        // Fallback: Play music on first user interaction
+        document.body.addEventListener('click', function() {
+            var music = document.getElementById('backgroundMusic');
+            if (music.paused) {
+                music.play().then(function() {
+                    console.log('Music started playing after user interaction.');
+                }).catch(function(error) {
+                    console.log('Failed to play the audio:', error);
+                });
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
