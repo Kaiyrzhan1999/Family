@@ -21,39 +21,33 @@
             width: 100%;
         }
 
-    .top-panel {
-        background: linear-gradient(45deg, #FF0000, #FFA500, #008000, #0000FF);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-        height: 3cm;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
+        .top-panel {
+            background: linear-gradient(45deg, #FF0000, #FFA500, #008000, #0000FF);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 3cm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
 
-    @keyframes gradientBG {
-        0% {
-            background-position: 0% 50%;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
 
-    .top-panel::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-        z-index: 0;
-    }
+        .top-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
 
         .back-button {
             position: absolute;
@@ -67,41 +61,40 @@
             z-index: 10;
         }
 
-    .logo {
-        height: 3cm;
-        width: auto;
-        position: relative;
-        z-index: 1;
-        filter: 
-            drop-shadow(0 0 2px rgba(255, 255, 255, 0.7))
-            drop-shadow(0 0 5px rgba(255, 165, 0, 0.5))
-            drop-shadow(0 0 10px rgba(255, 69, 0, 0.3))
-            drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
-        transition: all 0.3s ease;
-    }
+        .logo {
+            height: 3cm;
+            width: auto;
+            position: relative;
+            z-index: 1;
+            filter: 
+                drop-shadow(0 0 2px rgba(255, 255, 255, 0.7))
+                drop-shadow(0 0 5px rgba(255, 165, 0, 0.5))
+                drop-shadow(0 0 10px rgba(255, 69, 0, 0.3))
+                drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+            transition: all 0.3s ease;
+        }
 
-    .logo:hover {
-        transform: translateY(-5px);
-        filter: 
-            drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
-            drop-shadow(0 0 7px rgba(255, 165, 0, 0.6))
-            drop-shadow(0 0 12px rgba(255, 69, 0, 0.4))
-            drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
-    }
+        .logo:hover {
+            transform: translateY(-5px);
+            filter: 
+                drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
+                drop-shadow(0 0 7px rgba(255, 165, 0, 0.6))
+                drop-shadow(0 0 12px rgba(255, 69, 0, 0.4))
+                drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
+        }
 
         .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 1cm 10px;
+            padding: 1rem 10px;
             overflow-y: auto;
         }
 
-
         .main-text {
-            font-size: 0.8cm;
+            font-size: 1.2rem;
             text-align: center;
-            margin-bottom: 1cm;
+            margin-bottom: 1rem;
             color: #333;
         }
 
@@ -109,18 +102,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5cm;
+            gap: 0.5rem;
         }
 
         .reason-btn {
             width: 100%;
-            max-width: 10cm;
-            min-height: 1.5cm;
+            max-width: 300px;
+            min-height: 2.5rem;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 18px;
+            font-size: 1rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -140,13 +133,43 @@
             transform: scale(0.98);
         }
 
-        @media (max-width: 600px) {
+        @media (min-width: 768px) {
             .main-text {
-                font-size: 24px;
+                font-size: 1.5rem;
             }
+
             .reason-btn {
-                font-size: 16px;
-                padding: 15px 10px;
+                max-width: 400px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .top-panel {
+                height: 2cm;
+            }
+
+            .logo {
+                height: 2cm;
+            }
+
+            .main-content {
+                padding: 0.5rem 10px;
+            }
+
+            .main-text {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .reason-btn {
+                min-height: 2rem;
+                font-size: 0.9rem;
+                padding: 5px;
+            }
+
+            .buttons-container {
+                gap: 0.3rem;
             }
         }
     </style>
@@ -164,7 +187,7 @@
                 <button class="reason-btn" onclick="openFeedbackComment('СКОРОСТЬ ОБСЛУЖИВАНИЯ')">СКОРОСТЬ ОБСЛУЖИВАНИЯ</button>
                 <button class="reason-btn" onclick="openFeedbackComment('ПЕРСОНАЛ')">ПЕРСОНАЛ</button>
                 <button class="reason-btn" onclick="openFeedbackComment('ГИГИЕНА')">ГИГИЕНА</button>
-                <button class="reason-btn" onclick="openFeedbackComment('Enes boqtadi')">САНИТАРИЯ В ЗАЛЕ</button>
+                <button class="reason-btn" onclick="openFeedbackComment('САНИТАРИЯ В ЗАЛЕ')">САНИТАРИЯ В ЗАЛЕ</button>
                 <button class="reason-btn" onclick="openFeedbackComment('ДРУГОЕ (ПРЕДЛОЖЕНИЕ)')">ДРУГОЕ (ПРЕДЛОЖЕНИЕ)</button>
             </div>
         </div>
@@ -175,17 +198,13 @@
         }
 
         function openFeedbackComment(reason) {
-            // Сохраняем выбранную причину в localStorage
             localStorage.setItem('feedbackReason', reason);
-            // Переходим на страницу комментария
             window.location.href = 'feedback_comment.html';
         }
 
-// Добавьте это на страницы feedback_reason.html и feedback_comment.html
-window.onload = function() {
-    console.log('Page loaded. Current localStorage:', localStorage);
-}
-
+        window.onload = function() {
+            console.log('Page loaded. Current localStorage:', localStorage);
+        }
     </script>
 </body>
 </html>
