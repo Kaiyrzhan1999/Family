@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Контактная информация</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://unpkg.com/imask"></script>
     <style>
         body, html {
             margin: 0;
@@ -21,39 +22,33 @@
             width: 100%;
         }
 
-    .top-panel {
-        background: linear-gradient(45deg, #FF0000, #FFA500, #008000, #0000FF);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-        height: 3cm;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
+        .top-panel {
+            background: linear-gradient(45deg, #FF0000, #FFA500, #008000, #0000FF);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 3cm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
 
-    @keyframes gradientBG {
-        0% {
-            background-position: 0% 50%;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
 
-    .top-panel::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-        z-index: 0;
-    }
+        .top-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
 
         .back-button {
             position: absolute;
@@ -67,27 +62,27 @@
             z-index: 10;
         }
 
-    .logo {
-        height: 3cm;
-        width: auto;
-        position: relative;
-        z-index: 1;
-        filter: 
-            drop-shadow(0 0 2px rgba(255, 255, 255, 0.7))
-            drop-shadow(0 0 5px rgba(255, 165, 0, 0.5))
-            drop-shadow(0 0 10px rgba(255, 69, 0, 0.3))
-            drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
-        transition: all 0.3s ease;
-    }
+        .logo {
+            height: 3cm;
+            width: auto;
+            position: relative;
+            z-index: 1;
+            filter: 
+                drop-shadow(0 0 2px rgba(255, 255, 255, 0.7))
+                drop-shadow(0 0 5px rgba(255, 165, 0, 0.5))
+                drop-shadow(0 0 10px rgba(255, 69, 0, 0.3))
+                drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+            transition: all 0.3s ease;
+        }
 
-    .logo:hover {
-        transform: translateY(-5px);
-        filter: 
-            drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
-            drop-shadow(0 0 7px rgba(255, 165, 0, 0.6))
-            drop-shadow(0 0 12px rgba(255, 69, 0, 0.4))
-            drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
-    }
+        .logo:hover {
+            transform: translateY(-5px);
+            filter: 
+                drop-shadow(0 0 3px rgba(255, 255, 255, 0.8))
+                drop-shadow(0 0 7px rgba(255, 165, 0, 0.6))
+                drop-shadow(0 0 12px rgba(255, 69, 0, 0.4))
+                drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5));
+        }
 
         .main-content {
             flex: 1;
@@ -174,6 +169,35 @@
                 font-size: 0.9rem;
             }
         }
+
+        @media (max-height: 600px) {
+            .top-panel {
+                height: 2cm;
+            }
+
+            .logo {
+                height: 2cm;
+            }
+
+            .main-content {
+                padding: 0.5rem 10px;
+            }
+
+            .input-field, .continue-btn {
+                height: 2rem;
+                font-size: 0.9rem;
+            }
+
+            .main-text {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .privacy-text {
+                font-size: 0.7rem;
+                margin-top: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -195,35 +219,35 @@
             window.location.href = 'feedback_comment.html';
         }
 
-    function submitFeedback() {
-        const mobileNumber = document.getElementById('mobileInput').value;
-        const name = document.getElementById('nameInput').value;
-        const contactInfo = `${name} - ${mobileNumber}`;
-        localStorage.setItem('contactInfo', contactInfo);
-        console.log('Contact info saved:', contactInfo); // Добавлено логирование
-        sendFeedbackToTelegram();
-    }
-
-    function sendFeedbackToTelegram() {
-        const tableNumber = localStorage.getItem('tableNumber');
-        const feedbackReason = localStorage.getItem('feedbackReason');
-        const feedbackComment = localStorage.getItem('feedbackComment');
-        const contactInfo = localStorage.getItem('contactInfo');
-
-        console.log('Retrieved data:', { tableNumber, feedbackReason, feedbackComment, contactInfo }); // Добавлено логирование
-
-        // Проверка наличия данных
-        if (!tableNumber && !feedbackReason && !feedbackComment && !contactInfo) {
-            console.error('No data found in localStorage');
-            alert('Ошибка: Данные отзыва не найдены. Пожалуйста, заполните форму заново.');
-            window.location.href = 'feedback_reason.html'; // Перенаправление на начальную страницу
-            return;
+        function submitFeedback() {
+            const mobileInput = document.getElementById('mobileInput');
+            const mobileNumber = mobileInput.value;
+            const name = document.getElementById('nameInput').value;
+            const contactInfo = `${name} - ${mobileNumber}`;
+            localStorage.setItem('contactInfo', contactInfo);
+            console.log('Contact info saved:', contactInfo);
+            sendFeedbackToTelegram();
         }
 
-        const [name, phone] = (contactInfo || '- -').split(' - ');
+        function sendFeedbackToTelegram() {
+            const tableNumber = localStorage.getItem('tableNumber');
+            const feedbackReason = localStorage.getItem('feedbackReason');
+            const feedbackComment = localStorage.getItem('feedbackComment');
+            const contactInfo = localStorage.getItem('contactInfo');
 
-        const message = `
-Новый отзыв!
+            console.log('Retrieved data:', { tableNumber, feedbackReason, feedbackComment, contactInfo });
+
+            if (!tableNumber && !feedbackReason && !feedbackComment && !contactInfo) {
+                console.error('No data found in localStorage');
+                alert('Ошибка: Данные отзыва не найдены. Пожалуйста, заполните форму заново.');
+                window.location.href = 'feedback_reason.html';
+                return;
+            }
+
+            const [name, phone] = (contactInfo || '- -').split(' - ');
+
+            const message = `
+Afsona family
 
 Имя: ${name || 'Не указано'}
 Телефон: ${phone || 'Не указано'}
@@ -231,35 +255,54 @@
 Столик: ${tableNumber || 'Не указано'}
 Причина: ${feedbackReason || 'Не указано'}
 Отзыв: ${feedbackComment || 'Не указано'}
-        `;
+            `;
 
-        console.log('Message to be sent:', message); // Добавлено логирование
+            console.log('Message to be sent:', message);
 
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzP6_l-GnFk4zd1FhUIwnnz1IRDQZVnpiM_3Dc-gV3hObGmWqrwF01DDtbH2nFZ63TO/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzP6_l-GnFk4zd1FhUIwnnz1IRDQZVnpiM_3Dc-gV3hObGmWqrwF01DDtbH2nFZ63TO/exec';
 
-        fetch(scriptURL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message: message })
-        })
-        .then(response => {
-            console.log('Success!', response);
-            localStorage.clear();
-            window.location.href = 'feedback_thank_you.html';
-        })
-        .catch(error => {
-            console.error('Error!', error.message);
-            alert('Произошла ошибка при отправке отзыва. Пожалуйста, попробуйте еще раз.');
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message })
+            })
+            .then(response => {
+                console.log('Success!', response);
+                localStorage.clear();
+                window.location.href = 'feedback_thank_you.html';
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert('Произошла ошибка при отправке отзыва. Пожалуйста, попробуйте еще раз.');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var phoneInput = document.getElementById('mobileInput');
+            var maskOptions = {
+                mask: '+{7}(000)000-00-00'
+            };
+            var mask = IMask(phoneInput, maskOptions);
+
+            phoneInput.addEventListener('focus', function() {
+                if (mask.unmaskedValue === '') {
+                    mask.value = '+7';
+                }
+            });
+
+            phoneInput.addEventListener('blur', function() {
+                if (mask.unmaskedValue === '') {
+                    mask.value = '';
+                }
+            });
         });
-    }
 
-    // Добавим проверку при загрузке страницы
-    window.onload = function() {
-        console.log('Page loaded. Current localStorage:', localStorage);
-    }
-</script>
+        window.onload = function() {
+            console.log('Page loaded. Current localStorage:', localStorage);
+        }
+    </script>
 </body>
 </html>
