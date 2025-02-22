@@ -129,7 +129,7 @@
         .social-icon {
             width: 24px;
             height: 24px;
-            margin: 0 0px;
+            margin: 0 10px;
             background-color: var(--text-color);
             mask-size: contain;
             mask-repeat: no-repeat;
@@ -146,7 +146,7 @@
         }
 
         .social-text {
-            margin-left: 20px;
+            margin-left: 10px;
             font-size: 1em;
             color: var(--text-color);
         }
@@ -160,6 +160,8 @@
             color: var(--text-color);
             font-size: 1em;
             z-index: 10;
+            padding: 0 10px;
+            box-sizing: border-box;
         }
 
         @media (max-width: 768px) {
@@ -177,6 +179,11 @@
                 font-size: 1.5em;
             }
 
+            .tagline span {
+                font-size: 0.7em;
+                letter-spacing: 4px;
+            }
+
             .footer-text {
                 font-size: 0.8em;
             }
@@ -190,6 +197,20 @@
                 margin-top: 10px;
             }
         }
+
+        @media (max-height: 600px) {
+            .logo {
+                max-width: 200px;
+            }
+
+            .tagline {
+                font-size: 1.5em;
+            }
+
+            .footer-text {
+                bottom: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -199,7 +220,9 @@
             <img src="icon.png" alt="Afsona Family Logo" class="logo">
             <h1 class="tagline">ВКУС ВОСТОКА<span>СЕМЕЙНЫЕ ТРАДИЦИИ</span></h1>
             <div class="social-icons">
-                <a href="https://www.instagram.com/afsona_family?igsh=MXY1MmY3M2Q4N3NqdQ==" target="_blank"><div class="social-icon instagram-icon"></div></a>
+                <a href="https://www.instagram.com/afsona_family?igsh=MXY1MmY3M2Q4N3NqdQ==" target="_blank" rel="noopener noreferrer">
+                    <div class="social-icon instagram-icon"></div>
+                </a>
                 <div class="social-text">@afsona_family</div>
             </div>
         </div>
