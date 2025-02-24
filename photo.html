@@ -81,32 +81,34 @@
             display: block;
             width: 90%;
             max-width: 340px;
-            padding: 11px 0;
+            padding: 15px 0;
             background-color: #4CAF50;
             border: none;
             cursor: pointer;
-            font-size: 5vw;
+            font-size: clamp(16px, 5vw, 24px);
             color: white;
             text-align: center;
             text-decoration: none;
             border-radius: 25px;
+            touch-action: manipulation;
         }
         .close-button {
             position: fixed;
             top: 10px;
             right: 10px;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
             border-radius: 50%;
-            font-size: 24px;
+            font-size: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             text-decoration: none;
+            touch-action: manipulation;
         }
 
         @media (min-width: 768px) {
@@ -117,24 +119,41 @@
                 font-size: 18px;
             }
         }
+
+        @media (max-width: 480px) {
+            .photo {
+                max-height: 70vh;
+            }
+            .store-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .store-button {
+                width: 80%;
+                max-width: 200px;
+            }
+            .menu-button {
+                padding: 12px 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <a href="index.html" class="close-button">&times;</a>
+    <a href="index.html" class="close-button" role="button" aria-label="Закрыть">&times;</a>
     
     <div class="photo-container">
         <img src="WhatsApp Image 2025-02-13 at 22.00.08.jpeg" alt="Фото" class="photo">
     </div>
     <div class="buttons-container">
         <div class="store-buttons">
-            <a href="https://apps.apple.com/kz/app/aktobefood/id6711349592" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" class="store-button">
+            <a href="https://apps.apple.com/kz/app/aktobefood/id6711349592" target="_blank" rel="noopener noreferrer">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Скачать в App Store" class="store-button">
             </a>
-            <a href="https://play.google.com/store/apps/details?id=com.AktobeFoodApp" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="store-button">
+            <a href="https://play.google.com/store/apps/details?id=com.AktobeFoodApp" target="_blank" rel="noopener noreferrer">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Скачать в Google Play" class="store-button">
             </a>
         </div>
-        <a href="menu.html" class="menu-button">Открыть меню</a>
+        <a href="menu.html" class="menu-button" role="button">Открыть меню</a>
     </div>
     
 <script>
