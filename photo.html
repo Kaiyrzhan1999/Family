@@ -41,12 +41,29 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         .slide img {
             max-width: 100%;
             max-height: 80vh;
             object-fit: contain;
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+        }
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            animation: float 3s ease-in-out infinite;
+        }
+        .logo {
+            width: 100px;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+            transition: transform 0.3s ease;
+        }
+        .logo:hover {
+            transform: scale(1.1);
         }
         .buttons-container {
             padding: 20px;
@@ -96,6 +113,35 @@
         .slider-nav.next {
             right: 10px;
         }
+        .store-buttons {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            flex-direction: column;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 20;
+        }
+        .store-button {
+            width: 200px;
+            height: auto;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .store-button:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
 
         @media (min-width: 769px) {
             .slider-nav {
@@ -112,6 +158,13 @@
             }
             .nav-button {
                 font-size: 16px;
+            }
+            .logo-container {
+                top: 10px;
+                left: 10px;
+            }
+            .logo {
+                width: 80px;
             }
         }
     </style>
@@ -132,8 +185,15 @@
                 <img src="WhatsApp_Image_2025-02-24_at_16.53.15.png" alt="Фото 4">
             </div>
         </div>
+        <div class="logo-container">
+            <img src="afood_logo.png" alt="AFood Logo" class="logo">
+        </div>
         <button class="slider-nav prev">&lt;</button>
         <button class="slider-nav next">&gt;</button>
+        <div class="store-buttons">
+            <img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" class="store-button" id="playStore">
+            <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="Download on the App Store" class="store-button" id="appStore">
+        </div>
     </div>
     <div class="buttons-container">
         <div class="nav-buttons">
@@ -147,6 +207,10 @@
     const slides = document.querySelectorAll('.slide');
     const prevButton = document.querySelector('.slider-nav.prev');
     const nextButton = document.querySelector('.slider-nav.next');
+    const storeButtons = document.querySelector('.store-buttons');
+    const playStoreButton = document.getElementById('playStore');
+    const appStoreButton = document.getElementById('appStore');
+    const logo = document.querySelector('.logo');
     let currentSlide = 0;
 
     function showSlide(index) {
@@ -179,26 +243,72 @@
     // Свайп на мобильных устройствах
     let touchStartX = 0;
     let touchEndX = 0;
+    let isSwiping = false;
 
     slider.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
+        touchStartX = e.touches[0].clientX;
+        isSwiping = true;
         clearInterval(slideInterval);
     }, { passive: true });
 
+    slider.addEventListener('touchmove', e => {
+        if (!isSwiping) return;
+        
+        const currentX = e.touches[0].clientX;
+        const diff = touchStartX - currentX;
+        
+        // Перемещаем слайдер вместе с пальцем
+        slider.style.transform = `translateX(${-currentSlide * 100 - (diff / slider.offsetWidth) * 100}%)`;
+    }, { passive: true });
+
     slider.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
+        if (!isSwiping) return;
+        
+        touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > 50) { // Если свайп достаточно длинный
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        } else {
+            // Если свайп был недостаточно длинным, возвращаем слайдер на место
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+        
+        isSwiping = false;
         slideInterval = setInterval(nextSlide, 3000);
     }, { passive: true });
 
-    function handleSwipe() {
-        if (touchStartX - touchEndX > 50) {
-            nextSlide();
+    // Отменяем свайп при выходе за пределы слайдера
+    slider.addEventListener('touchcancel', () => {
+        isSwiping = false;
+        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        slideInterval = setInterval(nextSlide, 3000);
+    }, { passive: true });
+
+    // Обработка нажатия на лого
+    logo.addEventListener('click', () => {
+        storeButtons.style.display = 'flex';
+    });
+
+    // Обработка выбора магазина приложений
+    playStoreButton.addEventListener('click', () => {
+        window.location.href = 'https://play.google.com/store/apps/details?id=com.AktobeFoodApp';
+    });
+
+    appStoreButton.addEventListener('click', () => {
+        window.location.href = 'https://apps.apple.com/kz/app/aktobefood/id6711349592';
+    });
+
+    // Закрытие окна выбора магазина при клике вне его
+    document.addEventListener('click', (e) => {
+        if (!storeButtons.contains(e.target) && e.target !== logo) {
+            storeButtons.style.display = 'none';
         }
-        if (touchEndX - touchStartX > 50) {
-            prevSlide();
-        }
-    }
+    });
 </script>
 </body>
 </html>
