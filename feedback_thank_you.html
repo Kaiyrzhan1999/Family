@@ -22,7 +22,7 @@
             background: linear-gradient(45deg, #FF0000, #FFA500, #008000, #0000FF);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            height: 3rem;
+            height: clamp(2.5rem, 8vh, 4rem);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -49,14 +49,14 @@
             background: none;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 4vw, 1.5rem);
             cursor: pointer;
             z-index: 1;
         }
         .logo {
             height: 100%;
             width: auto;
-            max-height: 3rem;
+            max-height: clamp(2.5rem, 8vh, 4rem);
             position: relative;
             z-index: 1;
             filter: 
@@ -78,31 +78,31 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            padding: 1rem;
+            padding: clamp(0.5rem, 2vh, 2rem);
             text-align: center;
         }
         .message {
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
             line-height: 1.5;
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.5rem, 2vh, 1rem);
         }
         .social-buttons-container {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding-bottom: 31rem;
+            padding-bottom: clamp(0.5rem, 5vh, 31rem);
         }
         .social-buttons {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: clamp(0.3rem, 1.5vh, 0.5rem);
         }
-        .social-button {
+        .social-button, .ok-button {
             width: 100%;
-            max-width: 300px;
-            height: 2.5rem;
+            max-width: clamp(200px, 80vw, 300px);
+            height: clamp(2rem, 6vh, 3rem);
             border: none;
             cursor: pointer;
             display: flex;
@@ -112,6 +112,7 @@
             transition: all 0.3s ease;
             overflow: hidden;
             position: relative;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
         }
         .social-button::before {
             content: '';
@@ -149,59 +150,7 @@
         .ok-button {
             background-color: #4CAF50;
             color: white;
-            border: none;
-            padding: 0.75rem 1rem;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
-            max-width: 300px;
-            margin: 0.5rem auto;
-        }
-
-        @media (min-width: 768px) {
-            .top-panel {
-                height: 4rem;
-            }
-            .logo {
-                max-height: 4rem;
-            }
-            .message {
-                font-size: 1.2rem;
-            }
-            .social-button, .ok-button {
-                height: 3rem;
-                font-size: 1.1rem;
-            }
-            .content {
-                padding: 2rem;
-            }
-        }
-
-        @media (max-height: 600px) {
-            .top-panel {
-                height: 2.5rem;
-            }
-            .logo {
-                max-height: 2.5rem;
-            }
-            .message {
-                font-size: 0.9rem;
-                margin-bottom: 0.5rem;
-            }
-            .social-button, .ok-button {
-                height: 2rem;
-                font-size: 0.9rem;
-            }
-            .social-buttons-container {
-                padding-bottom: 0.5rem;
-            }
-            .content {
-                padding: 0.5rem;
-            }
+            margin: clamp(0.3rem, 1.5vh, 0.5rem) auto;
         }
     </style>
 </head>
