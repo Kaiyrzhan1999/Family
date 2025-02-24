@@ -26,7 +26,7 @@
             background: linear-gradient(45deg, #FF0000, #FFA500, #008000, #0000FF);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            height: 3cm;
+            height: clamp(2cm, 8vh, 3cm);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -56,14 +56,14 @@
             background: none;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: clamp(18px, 4vw, 24px);
             cursor: pointer;
             padding: 10px;
             z-index: 10;
         }
 
         .logo {
-            height: 3cm;
+            height: 100%;
             width: auto;
             position: relative;
             z-index: 1;
@@ -89,24 +89,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 1rem 10px;
+            padding: clamp(0.5rem, 2vh, 1rem) 10px;
             overflow-y: auto;
         }
 
         .main-text {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.5rem);
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: clamp(0.5rem, 2vh, 1rem);
             color: #333;
         }
 
         .input-field {
             width: 100%;
-            max-width: 300px;
-            height: 2.5rem;
-            margin-bottom: 0.8rem;
+            max-width: clamp(250px, 80vw, 400px);
+            height: clamp(2rem, 6vh, 3rem);
+            margin-bottom: clamp(0.4rem, 1.5vh, 0.8rem);
             padding: 0 15px;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
             border: 2px solid #4CAF50;
             border-radius: 10px;
             transition: border-color 0.3s ease;
@@ -123,15 +123,15 @@
 
         .continue-btn {
             width: 100%;
-            max-width: 300px;
-            height: 2.5rem;
+            max-width: clamp(250px, 80vw, 400px);
+            height: clamp(2rem, 6vh, 3rem);
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
             cursor: pointer;
-            margin-top: 0.8rem;
+            margin-top: clamp(0.4rem, 1.5vh, 0.8rem);
             transition: background-color 0.3s ease, transform 0.1s ease;
         }
 
@@ -144,59 +144,11 @@
         }
 
         .privacy-text {
-            font-size: 0.8rem;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
             text-align: center;
-            margin-top: 1rem;
+            margin-top: clamp(0.5rem, 2vh, 1rem);
             padding: 0 1rem;
             color: #666;
-        }
-
-        @media (min-width: 768px) {
-            .main-text {
-                font-size: 1.5rem;
-            }
-
-            .input-field, .continue-btn {
-                max-width: 400px;
-                height: 3rem;
-            }
-
-            .continue-btn {
-                font-size: 1.2rem;
-            }
-
-            .privacy-text {
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-height: 600px) {
-            .top-panel {
-                height: 2cm;
-            }
-
-            .logo {
-                height: 2cm;
-            }
-
-            .main-content {
-                padding: 0.5rem 10px;
-            }
-
-            .input-field, .continue-btn {
-                height: 2rem;
-                font-size: 0.9rem;
-            }
-
-            .main-text {
-                font-size: 1rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .privacy-text {
-                font-size: 0.7rem;
-                margin-top: 0.5rem;
-            }
         }
     </style>
 </head>
@@ -211,7 +163,7 @@
             <input type="tel" class="input-field" placeholder="Мобильный" id="mobileInput">
             <input type="text" class="input-field" placeholder="Фамилия имя" id="nameInput">
             <button class="continue-btn" onclick="submitFeedback()">Продолжить</button>
-            <p class="privacy-text">Мы обрабатываем данные, которыми вы поделились с нами, от имени Travelers coffee и не передаем ваши данные третьим лицам, кроме этой компании.</p>
+            <p class="privacy-text">Мы обрабатываем данные, которыми вы поделились с нами, от имени Afsona family и не передаем ваши данные третьим лицам, кроме этой компании.</p>
         </div>
     </div>
     <script>
