@@ -24,9 +24,12 @@
             margin: 10px 0;
             width: 100%;
             max-width: 800px;
+            display: flex;
+            justify-content: center;
         }
         .menu-item img {
-            width: 100%;
+            width: 800px;
+            max-width: 100%;
             height: auto;
             display: block;
         }
@@ -74,24 +77,6 @@
             img.decoding = "async";
             return img;
         }
-
-        function optimizeImages() {
-            const images = document.querySelectorAll('.menu-item img');
-            const width = window.innerWidth;
-
-            images.forEach(img => {
-                if (width <= 480) {
-                    img.style.maxWidth = '100%';
-                } else if (width <= 1024) {
-                    img.style.maxWidth = '80%';
-                } else {
-                    img.style.maxWidth = '60%';
-                }
-            });
-        }
-
-        window.addEventListener('load', optimizeImages);
-        window.addEventListener('resize', optimizeImages);
 
         if ('IntersectionObserver' in window) {
             const imageObserver = new IntersectionObserver((entries, observer) => {
