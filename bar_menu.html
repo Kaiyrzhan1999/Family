@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Меню бара</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
     <style>
         body, html {
             margin: 0;
@@ -15,17 +16,10 @@
             font-family: 'Roboto', Arial, sans-serif;
             overflow: hidden;
         }
-        .pdf-container {
+        #pdf-viewer {
             width: 100%;
             height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        .pdf-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+            overflow: auto;
         }
         .close-button {
             position: fixed;
@@ -49,18 +43,46 @@
 </head>
 <body>
     <a href="menu.html" class="close-button">×</a>
-    <div class="pdf-container">
-        <iframe class="pdf-iframe" src="" frameborder="0"></iframe>
-    </div>
+    <div id="pdf-viewer"></div>
 
     <script>
-        function loadPDF() {
-            const iframe = document.querySelector('.pdf-iframe');
-            const pdfUrl = encodeURIComponent(window.location.href.replace(/[^/]*$/, '') + 'Bar.pdf');
-            iframe.src = `https://docs.google.com/viewer?url=${pdfUrl}&embedded=true`;
-        }
+        // The workerSrc property shall be specified.
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.min.js';
 
-        window.addEventListener('load', loadPDF);
+        // Asynchronous download PDF
+        const loadingTask = pdfjsLib.getDocument('Bar.pdf');
+        loadingTask.promise.then(function(pdf) {
+            console.log('PDF loaded');
+
+            // Fetch the first page
+            const pageNumber = 1;
+            pdf.getPage(pageNumber).then(function(page) {
+                console.log('Page loaded');
+
+                const scale = 1.5;
+                const viewport = page.getViewport({scale: scale});
+
+                // Prepare canvas using PDF page dimensions
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                // Render PDF page into canvas context
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                const renderTask = page.render(renderContext);
+                renderTask.promise.then(function () {
+                    console.log('Page rendered');
+                    document.getElementById('pdf-viewer').appendChild(canvas);
+                });
+            });
+        }, function (reason) {
+            // PDF loading error
+            console.error(reason);
+        });
     </script>
 </body>
 </html>
