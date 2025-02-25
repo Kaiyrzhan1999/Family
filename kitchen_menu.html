@@ -10,15 +10,25 @@
             padding: 0;
             background-color: black;
             color: white;
-            font-family: 'Roboto', Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: Arial, sans-serif;
         }
         .menu-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        .menu-item {
+            margin: 10px 0;
             width: 100%;
-            height: 100%;
+            max-width: 800px;
+        }
+        .menu-item img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
         .close-button {
             position: fixed;
@@ -38,12 +48,89 @@
             text-decoration: none;
             z-index: 1000;
         }
+        @media (max-width: 600px) {
+            .menu-container {
+                padding: 5px;
+            }
+            .menu-item {
+                margin: 5px 0;
+            }
+        }
     </style>
 </head>
 <body>
     <a href="menu.html" class="close-button">×</a>
-    <div class="menu-container">
-        <iframe src="Mutfak.pdf#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="100%" frameborder="0"></iframe>
-    </div>
+    <div class="menu-container" id="menuContainer"></div>
+
+    <script>
+        const kitchenMenuImages = Array.from({length: 56}, (_, i) => `${i}.jpg`);
+        const menuContainer = document.getElementById('menuContainer');
+
+        function createImageElement(src) {
+            const img = new Image();
+            img.alt = "Меню кухни";
+            img.dataset.src = src;
+            img.loading = "lazy";
+            img.decoding = "async";
+            return img;
+        }
+
+        function optimizeImages() {
+            const images = document.querySelectorAll('.menu-item img');
+            const width = window.innerWidth;
+
+            images.forEach(img => {
+                if (width <= 480) {
+                    img.style.maxWidth = '100%';
+                } else if (width <= 1024) {
+                    img.style.maxWidth = '80%';
+                } else {
+                    img.style.maxWidth = '60%';
+                }
+            });
+        }
+
+        window.addEventListener('load', optimizeImages);
+        window.addEventListener('resize', optimizeImages);
+
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            const fragment = document.createDocumentFragment();
+
+            kitchenMenuImages.forEach(image => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                const img = createImageElement(image);
+                menuItem.appendChild(img);
+                fragment.appendChild(menuItem);
+                imageObserver.observe(img);
+            });
+
+            menuContainer.appendChild(fragment);
+        } else {
+            // Fallback for browsers that don't support Intersection Observer
+            const fragment = document.createDocumentFragment();
+
+            kitchenMenuImages.forEach(image => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                const img = createImageElement(image);
+                img.src = image;
+                menuItem.appendChild(img);
+                fragment.appendChild(menuItem);
+            });
+
+            menuContainer.appendChild(fragment);
+        }
+    </script>
 </body>
 </html>
