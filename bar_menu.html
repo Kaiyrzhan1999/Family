@@ -10,21 +10,22 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             background-color: black;
             color: white;
             font-family: 'Roboto', Arial, sans-serif;
+            overflow: hidden;
         }
         .pdf-container {
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
-        #pdf-viewer {
+        .pdf-iframe {
             width: 100%;
             height: 100%;
+            border: none;
         }
         .close-button {
             position: fixed;
@@ -49,24 +50,17 @@
 <body>
     <a href="menu.html" class="close-button">×</a>
     <div class="pdf-container">
-        <object id="pdf-viewer" data="Bar.pdf" type="application/pdf">
-            <p>Ваш браузер не поддерживает встроенные PDF. Пожалуйста, <a href="Bar.pdf">скачайте PDF</a> чтобы просмотреть его.</p>
-        </object>
+        <iframe class="pdf-iframe" src="" frameborder="0"></iframe>
     </div>
 
     <script>
-        function adjustPdfSize() {
-            const pdfViewer = document.getElementById('pdf-viewer');
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-
-            pdfViewer.style.width = `${windowWidth}px`;
-            pdfViewer.style.height = `${windowHeight}px`;
+        function loadPDF() {
+            const iframe = document.querySelector('.pdf-iframe');
+            const pdfUrl = encodeURIComponent(window.location.href.replace(/[^/]*$/, '') + 'Bar.pdf');
+            iframe.src = `https://docs.google.com/viewer?url=${pdfUrl}&embedded=true`;
         }
 
-        window.addEventListener('load', adjustPdfSize);
-        window.addEventListener('resize', adjustPdfSize);
-        window.addEventListener('orientationchange', adjustPdfSize);
+        window.addEventListener('load', loadPDF);
     </script>
 </body>
 </html>
