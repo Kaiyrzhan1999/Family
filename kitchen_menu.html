@@ -11,24 +11,14 @@
             background-color: black;
             color: white;
             font-family: 'Roboto', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .menu-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 10px;
-            max-width: 100%;
-            box-sizing: border-box;
-        }
-        .menu-item {
-            margin: 10px 0;
             width: 100%;
-            max-width: 800px;
-        }
-        .menu-item img {
-            width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
         }
         .close-button {
             position: fixed;
@@ -48,33 +38,12 @@
             text-decoration: none;
             z-index: 1000;
         }
-        @media (max-width: 600px) {
-            .menu-container {
-                padding: 5px;
-            }
-            .menu-item {
-                margin: 5px 0;
-            }
-        }
     </style>
 </head>
 <body>
     <a href="menu.html" class="close-button">×</a>
     <div class="menu-container">
-        <!-- Изображения меню кухни будут добавлены здесь с помощью JavaScript -->
+        <iframe src="Mutfak.pdf#toolbar=0&navpanes=0&scrollbar=0" width="100%" height="100%" frameborder="0"></iframe>
     </div>
-
-    <script>
-        const kitchenMenuImages = Array.from({length: 56}, (_, i) => `${i}.jpg`);
-
-        const menuContainer = document.querySelector('.menu-container');
-
-        kitchenMenuImages.forEach(image => {
-            const menuItem = document.createElement('div');
-            menuItem.className = 'menu-item';
-            menuItem.innerHTML = `<img src="${image}" alt="Меню кухни" loading="lazy">`;
-            menuContainer.appendChild(menuItem);
-        });
-    </script>
 </body>
 </html>
