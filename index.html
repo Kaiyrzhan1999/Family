@@ -84,36 +84,62 @@
             top: 10px;
             right: 10px;
             z-index: 3;
-            display: flex;
-            gap: 10px;
+        }
+
+        .language-dropdown {
+            position: relative;
+            display: inline-block;
         }
 
         .language-button {
-            width: 40px;
-            height: 30px;
-            background-size: cover;
-            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.8);
             border: none;
             cursor: pointer;
             border-radius: 5px;
-            transition: transform 0.3s;
+            font-size: 14px;
         }
 
         .language-button:hover {
-            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 1);
         }
 
-        .language-button.active {
-            box-shadow: 0 0 5px 2px white;
+        .language-flag {
+            width: 24px;
+            height: 18px;
+            margin-right: 8px;
+            background-size: cover;
+            background-position: center;
         }
 
-        #kk-button {
-            background-image: url('https://flagcdn.com/w40/kz.png');
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            min-width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
         }
 
-        #ru-button {
-            background-image: url('https://flagcdn.com/w40/ru.png');
+        .dropdown-content .language-button {
+            display: flex;
+            width: 100%;
+            text-align: left;
+            padding: 8px 10px;
         }
+
+        .language-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .kk-flag { background-image: url('https://flagcdn.com/w40/kz.png'); }
+        .ru-flag { background-image: url('https://flagcdn.com/w40/ru.png'); }
+        .tr-flag { background-image: url('https://flagcdn.com/w40/tr.png'); }
+        .en-flag { background-image: url('https://flagcdn.com/w40/gb.png'); }
 
         /* Styles for the background design */
         :root {
@@ -320,8 +346,8 @@
         <div class="design-content">
             <img src="icon.png" alt="Afsona Family Logo" class="logo">
             <h1 class="tagline">
-                <span data-kk="ШЫҒЫС ДӘМІ" data-ru="ВКУС ВОСТОКА">ВКУС ВОСТОКА</span>
-                <span data-kk="ОТБАСЫЛЫҚ ДӘСТҮРЛЕР" data-ru="СЕМЕЙНЫЕ ТРАДИЦИИ">СЕМЕЙНЫЕ ТРАДИЦИИ</span>
+                <span data-kk="ШЫҒЫС ДӘМІ" data-ru="ВКУС ВОСТОКА" data-tr="DOĞU'NUN TADI" data-en="TASTE OF THE EAST">ВКУС ВОСТОКА</span>
+                <span data-kk="ОТБАСЫЛЫҚ ДӘСТҮРЛЕР" data-ru="СЕМЕЙНЫЕ ТРАДИЦИИ" data-tr="AİLE GELENEKLERİ" data-en="FAMILY TRADITIONS">СЕМЕЙНЫЕ ТРАДИЦИИ</span>
             </h1>
             <div class="social-icons">
                 <a href="https://www.instagram.com/afsona_family?igsh=MXY1MmY3M2Q4N3NqdQ==" target="_blank" rel="noopener noreferrer">
@@ -331,21 +357,40 @@
             </div>
         </div>
         <div class="footer-text">
-            <span data-kk="БАРЛЫҚ САЛЫҚТАР БАҒАЛАРЫМЫЗҒА КІРЕДІ." data-ru="ВСЕ НАЛОГИ ВКЛЮЧЕНЫ В НАШИ ЦЕНЫ.">ВСЕ НАЛОГИ ВКЛЮЧЕНЫ В НАШИ ЦЕНЫ.</span><br>
-            <span data-kk="Бағалар соңғы рет 16.01.2025 жылы жаңартылды." data-ru="Цены были обновлены в последний раз 16.01.2025.">Цены были обновлены в последний раз 16.01.2025.</span>
+            <span data-kk="БАРЛЫҚ САЛЫҚТАР БАҒАЛАРЫМЫЗҒА КІРЕДІ." data-ru="ВСЕ НАЛОГИ ВКЛЮЧЕНЫ В НАШИ ЦЕНЫ." data-tr="TÜM VERGİLER FİYATLARIMIZA DAHİLDİR." data-en="ALL TAXES ARE INCLUDED IN OUR PRICES.">ВСЕ НАЛОГИ ВКЛЮЧЕНЫ В НАШИ ЦЕНЫ.</span><br>
+            <span data-kk="Бағалар соңғы рет 16.01.2025 жылы жаңартылды." data-ru="Цены были обновлены в последний раз 16.01.2025." data-tr="Fiyatlar son olarak 16.01.2025 tarihinde güncellendi." data-en="Prices were last updated on 16.01.2025.">Цены были обновлены в последний раз 16.01.2025.</span>
         </div>
     </div>
 
     <div class="language-selector">
-        <button id="kk-button" class="language-button active" onclick="changeLanguage('kk')"></button>
-        <button id="ru-button" class="language-button" onclick="changeLanguage('ru')"></button>
+        <div class="language-dropdown">
+            <button id="current-language" class="language-button">
+                <span id="current-flag" class="language-flag"></span>
+                <span id="current-lang-name"></span>
+            </button>
+            <div class="dropdown-content">
+                <button class="language-button" onclick="changeLanguage('kk')">
+                    <span class="language-flag kk-flag"></span>Қазақша
+                </button>
+                <button class="language-button" onclick="changeLanguage('ru')">
+                    <span class="language-flag ru-flag"></span>Русский
+                </button>
+                <button class="language-button" onclick="changeLanguage('tr')">
+                    <span class="language-flag tr-flag"></span>Türkçe
+                </button>
+                <button class="language-button" onclick="changeLanguage('en')">
+                    <span class="language-flag en-flag"></span>English
+                </button>
+            </div>
+        </div>
     </div>
+
     <div class="content">
-        <h1 class="animated-text" data-kk="Бастау үшін басыңыз" data-ru="Нажмите чтобы начать">Бастау үшін басыңыз</h1>
+        <h1 class="animated-text" data-kk="Бастау үшін басыңыз" data-ru="Нажмите чтобы начать" data-tr="Başlamak için tıklayın" data-en="Click to start">Нажмите чтобы начать</h1>
     </div>
     <div class="dialog" id="dialog">
-        <button class="dialog-button" onclick="openMenu()" data-kk="Мәзір" data-ru="Меню">Мәзір</button>
-        <button class="dialog-button" onclick="openNewWindow()" data-kk="Пікірлер" data-ru="Отзывы">Пікірлер</button>
+        <button class="dialog-button" onclick="openMenu()" data-kk="Мәзір" data-ru="Меню" data-tr="Menü" data-en="Menu">Меню</button>
+        <button class="dialog-button" onclick="openNewWindow()" data-kk="Пікірлер" data-ru="Отзывы" data-tr="Yorumlar" data-en="Reviews">Отзывы</button>
     </div>
 
 <script>
@@ -353,7 +398,6 @@
     let isDialogOpen = false;
 
     document.body.addEventListener('click', (e) => {
-        // Проверяем, не является ли целевой элемент кнопкой выбора языка или их родителем
         if (e.target.closest('.language-selector')) return;
         
         if (e.target.closest('.dialog')) return;
@@ -377,15 +421,25 @@
 
         function changeLanguage(lang) {
             document.documentElement.lang = lang;
-            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+            document.querySelectorAll('[data-kk][data-ru][data-tr][data-en]').forEach(el => {
                 el.textContent = el.getAttribute(`data-${lang}`);
             });
-            document.querySelectorAll('.language-button').forEach(btn => {
-                btn.classList.toggle('active', btn.id === `${lang}-button`);
-            });
+            
+            // Update current language button
+            const currentFlag = document.getElementById('current-flag');
+            const currentLangName = document.getElementById('current-lang-name');
+            currentFlag.className = `language-flag ${lang}-flag`;
+            
+            const langNames = {
+                'kk': 'Қазақша',
+                'ru': 'Русский',
+                'tr': 'Türkçe',
+                'en': 'English'
+            };
+            currentLangName.textContent = langNames[lang];
+            
             localStorage.setItem('language', lang);
             
-            // Предотвращаем открытие диалогового окна при смене языка
             event.stopPropagation();
         }
 
