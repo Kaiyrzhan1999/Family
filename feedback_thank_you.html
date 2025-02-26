@@ -162,9 +162,9 @@
         </div>
         <div class="content">
             <div class="message">
-                <p>Мы только что поделились вашим отзывом с властями.</p>
-                <p>Пожалуйста, дайте нам знать, как все прошло в следующий раз.</p>
-                <p>Спасибо, что помогаете нам улучшить качество обслуживания клиентов.</p>
+                <p data-kk="Біз жаңа ғана сіздің пікіріңізбен басшылықпен бөлістік." data-ru="Мы только что поделились вашим отзывом с властями.">Мы только что поделились вашим отзывом с властями.</p>
+                <p data-kk="Келесі жолы бәрі қалай өткенін бізге хабарлаңыз." data-ru="Пожалуйста, дайте нам знать, как все прошло в следующий раз.">Пожалуйста, дайте нам знать, как все прошло в следующий раз.</p>
+                <p data-kk="Клиенттерге қызмет көрсету сапасын жақсартуға көмектескеніңіз үшін рахмет." data-ru="Спасибо, что помогаете нам улучшить качество обслуживания клиентов.">Спасибо, что помогаете нам улучшить качество обслуживания клиентов.</p>
             </div>
             <div class="social-buttons-container">
                 <div class="social-buttons">
@@ -180,12 +180,20 @@
                         <img src="https://sf-tb-sg.ibytedtos.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png" alt="TikTok">
                         <span>TikTok</span>
                     </button>
-                    <button class="ok-button" onclick="openIndexPage()">На главную</button>
+                    <button class="ok-button" onclick="openIndexPage()" data-kk="Басты бетке" data-ru="На главную">На главную</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
+        function applyLanguage() {
+            const lang = localStorage.getItem('language') || 'kk';
+            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${lang}`);
+            });
+            document.documentElement.lang = lang;
+        }
+
         function goBack() {
             window.location.href = 'feedback_contact.html';
         }
@@ -202,6 +210,10 @@
             };
             window.open(urls[platform], '_blank');
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            applyLanguage();
+        });
     </script>
 </body>
 </html>
