@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Меню ресторана</title>
+    <title data-kk="Мейрамхана мәзірі" data-ru="Меню ресторана">Меню ресторана</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 
@@ -259,7 +259,7 @@
         </div>
         <img src="afood_logo.png" alt="afood.kz" class="logo">
         <div class="app-promo" onclick="showStoreModal()">
-            <span>Установи Aktobefood - получи 10% кэшбэк</span>
+            <span data-kk="Aktobefood орнатыңыз - 10% кэшбэк алыңыз" data-ru="Установи Aktobefood - получи 10% кэшбэк">Установи Aktobefood - получи 10% кэшбэк</span>
         </div>
     </div>
 
@@ -283,8 +283,8 @@
         <div class="divider"></div>
         <div class="lower-part">
             <div class="menu">
-                <div class="menu-item" onclick="openPage('bar_menu.html')" style="background-image: url('Меню бара_page-0001.jpg')"><span>МЕНЮ БАРА</span></div>
-                <div class="menu-item" onclick="openPage('kitchen_menu.html')" style="background-image: url('Меню бара_page-0001.jpg')"><span>МЕНЮ КУХНИ</span></div>
+                <div class="menu-item" onclick="openPage('bar_menu.html')" style="background-image: url('Меню бара_page-0001.jpg')"><span data-kk="БАР МӘЗІРІ" data-ru="МЕНЮ БАРА">МЕНЮ БАРА</span></div>
+                <div class="menu-item" onclick="openPage('kitchen_menu.html')" style="background-image: url('Меню бара_page-0001.jpg')"><span data-kk="АС МӘЗІРІ" data-ru="МЕНЮ КУХНИ">МЕНЮ КУХНИ</span></div>
             </div>
         </div>
     </div>
@@ -313,6 +313,43 @@
                 this.style.display = 'none';
             }
         });
+
+        function applyLanguage() {
+            const lang = localStorage.getItem('language') || 'kk';
+            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${lang}`);
+            });
+            document.documentElement.lang = lang;
+            document.title = document.querySelector('title').getAttribute(`data-${lang}`);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            applyLanguage();
+        });
+
+        // Добавьте эту функцию для переключения языка
+        function toggleLanguage() {
+            const currentLang = localStorage.getItem('language') || 'kk';
+            const newLang = currentLang === 'kk' ? 'ru' : 'kk';
+            localStorage.setItem('language', newLang);
+            applyLanguage();
+        }
+
+        // Добавьте кнопку для переключения языка
+        const languageToggle = document.createElement('button');
+        languageToggle.textContent = 'KK/RU';
+        languageToggle.style.position = 'fixed';
+        languageToggle.style.top = '10px';
+        languageToggle.style.right = '10px';
+        languageToggle.style.padding = '5px 10px';
+        languageToggle.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+        languageToggle.style.color = 'white';
+        languageToggle.style.border = 'none';
+        languageToggle.style.borderRadius = '5px';
+        languageToggle.style.cursor = 'pointer';
+        languageToggle.style.zIndex = '1001';
+        languageToggle.onclick = toggleLanguage;
+        document.body.appendChild(languageToggle);
     </script>
 </body>
 </html>
