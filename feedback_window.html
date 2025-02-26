@@ -196,26 +196,26 @@
             <img src="icon.png" alt="Логотип" class="logo">
         </div>
         <div class="main-content">
-            <p class="main-text">Информация, необходимая для достижения лучших результатов по вашим отзывам</p>
-            <p class="sub-text">Выбор номера столика</p>
+            <p class="main-text" data-kk="Сіздің пікірлеріңіз бойынша ең жақсы нәтижелерге қол жеткізу үшін қажетті ақпарат" data-ru="Информация, необходимая для достижения лучших результатов по вашим отзывам">Информация, необходимая для достижения лучших результатов по вашим отзывам</p>
+            <p class="sub-text" data-kk="Үстел нөмірін таңдау" data-ru="Выбор номера столика">Выбор номера столика</p>
 
             <div class="floor-select-container">
                 <select class="floor-select" id="floorSelect">
-                    <option value="">Сначала выберите этаж</option>
-                    <option value="1">1 этаж</option>
-                    <option value="2">2 этаж</option>
-                    <option value="vip0">VIP 0 этаж</option>
-                    <option value="vip2">VIP 2 этаж</option>
+                    <option value="" data-kk="Алдымен қабатты таңдаңыз" data-ru="Сначала выберите этаж">Сначала выберите этаж</option>
+                    <option value="1" data-kk="1 қабат" data-ru="1 этаж">1 этаж</option>
+                    <option value="2" data-kk="2 қабат" data-ru="2 этаж">2 этаж</option>
+                    <option value="vip0" data-kk="VIP 0 қабат" data-ru="VIP 0 этаж">VIP 0 этаж</option>
+                    <option value="vip2" data-kk="VIP 2 қабат" data-ru="VIP 2 этаж">VIP 2 этаж</option>
                 </select>
             </div>
 
             <div class="dropdown">
-                <button class="dropbtn">Выберите номер столика</button>
+                <button class="dropbtn" data-kk="Үстел нөмірін таңдаңыз" data-ru="Выберите номер столика">Выберите номер столика</button>
                 <div class="dropdown-content" id="tableDropdown">
                     <!-- Опции будут добавлены с помощью JavaScript -->
                 </div>
             </div>
-            <button class="continue-btn" onclick="openFeedbackReasons()">Продолжить</button>
+            <button class="continue-btn" onclick="openFeedbackReasons()" data-kk="Жалғастыру" data-ru="Продолжить">Продолжить</button>
         </div>
     </div>
     <script>
@@ -232,8 +232,19 @@
                 'vip2': [201, 202]
             };
 
+            function applyLanguage() {
+                const lang = localStorage.getItem('language') || 'kk';
+                document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+                    el.textContent = el.getAttribute(`data-${lang}`);
+                });
+                document.documentElement.lang = lang;
+            }
+
+            applyLanguage();
+
             floorSelect.addEventListener('change', function() {
-                dropBtn.textContent = 'Выберите номер столика';
+                const lang = localStorage.getItem('language') || 'kk';
+                dropBtn.textContent = dropBtn.getAttribute(`data-${lang}`);
                 dropdownContent.innerHTML = '';
                 if (this.value) {
                     tables[this.value].forEach(number => {
@@ -265,12 +276,15 @@
 
         function openFeedbackReasons() {
             const tableNumber = document.querySelector('.dropbtn').textContent;
-            if (tableNumber !== 'Выберите номер столика') {
+            const lang = localStorage.getItem('language') || 'kk';
+            const defaultText = lang === 'kk' ? 'Үстел нөмірін таңдаңыз' : 'Выберите номер столика';
+            if (tableNumber !== defaultText) {
                 localStorage.setItem('tableNumber', tableNumber);
                 console.log('Table number saved:', tableNumber);
                 window.location.href = 'feedback_reasons.html';
             } else {
-                alert('Пожалуйста, выберите номер столика перед продолжением.');
+                const alertMessage = lang === 'kk' ? 'Жалғастырмас бұрын үстел нөмірін таңдаңыз.' : 'Пожалуйста, выберите номер столика перед продолжением.';
+                alert(alertMessage);
             }
         }
 
