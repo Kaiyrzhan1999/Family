@@ -159,17 +159,17 @@
             <img src="icon.png" alt="Логотип" class="logo">
         </div>
         <div class="main-content">
-            <p class="main-text" data-kk="БІЗ ТЕЗ ЖАУАП БЕРУ ҮШІН АҚПАРАТТЫ ТОЛТЫРЫҢЫЗ!" data-ru="ПОЖАЛУЙСТА, ЗАПОЛНИТЕ ИНФОРМАЦИЮ ЧТОБЫ МЫ БЫСТРО РЕАГИРОВАЛИ!">ПОЖАЛУЙСТА, ЗАПОЛНИТЕ ИНФОРМАЦИЮ ЧТОБЫ МЫ БЫСТРО РЕАГИРОВАЛИ!</p>
-            <input type="tel" class="input-field" id="mobileInput" data-kk-placeholder="Ұялы телефон" data-ru-placeholder="Мобильный">
-            <input type="text" class="input-field" id="nameInput" data-kk-placeholder="Тегі аты" data-ru-placeholder="Фамилия имя">
-            <button class="continue-btn" onclick="submitFeedback()" data-kk="Жалғастыру" data-ru="Продолжить">Продолжить</button>
-            <p class="privacy-text" data-kk="Біз сіз бөліскен деректерді Afsona family атынан өңдейміз және сіздің деректеріңізді осы компаниядан басқа үшінші тараптарға бермейміз." data-ru="Мы обрабатываем данные, которыми вы поделились с нами, от имени Afsona family и не передаем ваши данные третьим лицам, кроме этой компании.">Мы обрабатываем данные, которыми вы поделились с нами, от имени Afsona family и не передаем ваши данные третьим лицам, кроме этой компании.</p>
+            <p class="main-text" data-kk="БІЗ ТЕЗ ЖАУАП БЕРУ ҮШІН АҚПАРАТТЫ ТОЛТЫРЫҢЫЗ!" data-ru="ПОЖАЛУЙСТА, ЗАПОЛНИТЕ ИНФОРМАЦИЮ ЧТОБЫ МЫ БЫСТРО РЕАГИРОВАЛИ!" data-tr="LÜTFEN HIZLI YANIT VEREBİLMEMİZ İÇİN BİLGİLERİ DOLDURUN!" data-en="PLEASE FILL IN THE INFORMATION SO WE CAN RESPOND QUICKLY!">ПОЖАЛУЙСТА, ЗАПОЛНИТЕ ИНФОРМАЦИЮ ЧТОБЫ МЫ БЫСТРО РЕАГИРОВАЛИ!</p>
+            <input type="tel" class="input-field" id="mobileInput" data-kk-placeholder="Ұялы телефон" data-ru-placeholder="Мобильный" data-tr-placeholder="Cep telefonu" data-en-placeholder="Mobile">
+            <input type="text" class="input-field" id="nameInput" data-kk-placeholder="Тегі аты" data-ru-placeholder="Фамилия имя" data-tr-placeholder="Soyadı adı" data-en-placeholder="Last name first name">
+            <button class="continue-btn" onclick="submitFeedback()" data-kk="Жалғастыру" data-ru="Продолжить" data-tr="Devam et" data-en="Continue">Продолжить</button>
+            <p class="privacy-text" data-kk="Біз сіз бөліскен деректерді Afsona family атынан өңдейміз және сіздің деректеріңізді осы компаниядан басқа үшінші тараптарға бермейміз." data-ru="Мы обрабатываем данные, которыми вы поделились с нами, от имени Afsona family и не передаем ваши данные третьим лицам, кроме этой компании." data-tr="Bizimle paylaştığınız verileri Afsona family adına işliyoruz ve verilerinizi bu şirket dışında üçüncü taraflarla paylaşmıyoruz." data-en="We process the data you shared with us on behalf of Afsona family and do not share your data with third parties other than this company.">Мы обрабатываем данные, которыми вы поделились с нами, от имени Afsona family и не передаем ваши данные третьим лицам, кроме этой компании.</p>
         </div>
     </div>
     <script>
         function applyLanguage() {
             const lang = localStorage.getItem('language') || 'kk';
-            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+            document.querySelectorAll('[data-kk][data-ru][data-tr][data-en]').forEach(el => {
                 el.textContent = el.getAttribute(`data-${lang}`);
             });
             document.documentElement.lang = lang;
@@ -193,6 +193,7 @@
             console.log('Contact info saved:', contactInfo);
             sendFeedbackToTelegram();
         }
+
 
         function sendFeedbackToTelegram() {
             const tableNumber = localStorage.getItem('tableNumber');
