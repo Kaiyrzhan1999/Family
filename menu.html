@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-kk="Мейрамхана мәзірі" data-ru="Меню ресторана">Меню ресторана</title>
+    <title data-kk="Мейрамхана мәзірі" data-ru="Меню ресторана" data-tr="Restoran Menüsü" data-en="Restaurant Menu">Меню ресторана</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 
@@ -259,7 +259,7 @@
         </div>
         <img src="afood_logo.png" alt="afood.kz" class="logo">
         <div class="app-promo" onclick="showStoreModal()">
-            <span data-kk="Aktobefood орнатыңыз - 10% кэшбэк алыңыз" data-ru="Установи Aktobefood - получи 10% кэшбэк">Установи Aktobefood - получи 10% кэшбэк</span>
+            <span data-kk="Aktobefood орнатыңыз - 10% кэшбэк алыңыз" data-ru="Установи Aktobefood - получи 10% кэшбэк" data-tr="Aktobefood'u yükle - %10 cashback kazan" data-en="Install Aktobefood - get 10% cashback">Установи Aktobefood - получи 10% кэшбэк</span>
         </div>
     </div>
 
@@ -283,8 +283,8 @@
         <div class="divider"></div>
         <div class="lower-part">
             <div class="menu">
-                <div class="menu-item" onclick="openPage('bar_menu.html')" style="background-image: url('Меню бара_page-0001.jpg')"><span data-kk="БАР МӘЗІРІ" data-ru="МЕНЮ БАРА">МЕНЮ БАРА</span></div>
-                <div class="menu-item" onclick="openPage('kitchen_menu.html')" style="background-image: url('Меню бара_page-0001.jpg')"><span data-kk="АС МӘЗІРІ" data-ru="МЕНЮ КУХНИ">МЕНЮ КУХНИ</span></div>
+                <div class="menu-item" onclick="openPage('bar_menu.html')" style="background-image: url('Меню бара_page-0001.jpg')"><span data-kk="БАР МӘЗІРІ" data-ru="МЕНЮ БАРА" data-tr="BAR MENÜSÜ" data-en="BAR MENU">МЕНЮ БАРА</span></div>
+                <div class="menu-item" onclick="openPage('kitchen_menu.html')" style="background-image: url('Меню бара_page-0001.jpg')"><span data-kk="АС МӘЗІРІ" data-ru="МЕНЮ КУХНИ" data-tr="MUTFAK MENÜSÜ" data-en="KITCHEN MENU">МЕНЮ КУХНИ</span></div>
             </div>
         </div>
     </div>
@@ -316,7 +316,7 @@
 
         function applyLanguage() {
             const lang = localStorage.getItem('language') || 'kk';
-            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+            document.querySelectorAll('[data-kk][data-ru][data-tr][data-en]').forEach(el => {
                 el.textContent = el.getAttribute(`data-${lang}`);
             });
             document.documentElement.lang = lang;
@@ -327,17 +327,22 @@
             applyLanguage();
         });
 
-        // Добавьте эту функцию для переключения языка
         function toggleLanguage() {
+            const languages = ['kk', 'ru', 'tr', 'en'];
             const currentLang = localStorage.getItem('language') || 'kk';
-            const newLang = currentLang === 'kk' ? 'ru' : 'kk';
+            const currentIndex = languages.indexOf(currentLang);
+            const newLang = languages[(currentIndex + 1) % languages.length];
             localStorage.setItem('language', newLang);
             applyLanguage();
+            updateLanguageToggleButton();
         }
 
-        // Добавьте кнопку для переключения языка
+        function updateLanguageToggleButton() {
+            const currentLang = localStorage.getItem('language') || 'kk';
+            languageToggle.textContent = currentLang.toUpperCase();
+        }
+
         const languageToggle = document.createElement('button');
-        languageToggle.textContent = 'KK/RU';
         languageToggle.style.position = 'fixed';
         languageToggle.style.top = '10px';
         languageToggle.style.right = '10px';
@@ -350,6 +355,7 @@
         languageToggle.style.zIndex = '1001';
         languageToggle.onclick = toggleLanguage;
         document.body.appendChild(languageToggle);
+        updateLanguageToggleButton();
     </script>
 </body>
 </html>
