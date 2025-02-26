@@ -162,58 +162,70 @@
         </div>
         <div class="content">
             <div class="message">
-                <p data-kk="Біз жаңа ғана сіздің пікіріңізбен басшылықпен бөлістік." data-ru="Мы только что поделились вашим отзывом с властями.">Мы только что поделились вашим отзывом с властями.</p>
-                <p data-kk="Келесі жолы бәрі қалай өткенін бізге хабарлаңыз." data-ru="Пожалуйста, дайте нам знать, как все прошло в следующий раз.">Пожалуйста, дайте нам знать, как все прошло в следующий раз.</p>
-                <p data-kk="Клиенттерге қызмет көрсету сапасын жақсартуға көмектескеніңіз үшін рахмет." data-ru="Спасибо, что помогаете нам улучшить качество обслуживания клиентов.">Спасибо, что помогаете нам улучшить качество обслуживания клиентов.</p>
+                <p data-kk="Біз жаңа ғана сіздің пікіріңізбен басшылықпен бөлістік." data-ru="Мы только что поделились вашим отзывом с властями." data-tr="Görüşlerinizi yetkililerle henüz paylaştık." data-en="We have just shared your feedback with the authorities.">Мы только что поделились вашим отзывом с властями.</p>
+                <p data-kk="Келесі жолы бәрі қалай өткенін бізге хабарлаңыз." data-ru="Пожалуйста, дайте нам знать, как все прошло в следующий раз." data-tr="Lütfen bir sonraki sefere her şeyin nasıl gittiğini bize bildirin." data-en="Please let us know how everything went next time.">Пожалуйста, дайте нам знать, как все прошло в следующий раз.</p>
+                <p data-kk="Клиенттерге қызмет көрсету сапасын жақсартуға көмектескеніңіз үшін рахмет." data-ru="Спасибо, что помогаете нам улучшить качество обслуживания клиентов." data-tr="Müşteri hizmetlerimizi iyileştirmemize yardımcı olduğunuz için teşekkür ederiz." data-en="Thank you for helping us improve our customer service quality.">Спасибо, что помогаете нам улучшить качество обслуживания клиентов.</p>
             </div>
             <div class="social-buttons-container">
                 <div class="social-buttons">
                     <button class="social-button gis" onclick="openSocialLink('2gis')">
                         <img src="png-klev-club-yozi-p-2-gis-logotip-png-6.png" alt="2GIS">
-                        <span>2GIS</span>
+                        <span data-kk="2GIS" data-ru="2GIS" data-tr="2GIS" data-en="2GIS">2GIS</span>
                     </button>
                     <button class="social-button instagram" onclick="openSocialLink('instagram')">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram">
-                        <span>Instagram</span>
+                        <span data-kk="Instagram" data-ru="Instagram" data-tr="Instagram" data-en="Instagram">Instagram</span>
                     </button>
                     <button class="social-button tiktok" onclick="openSocialLink('tiktok')">
                         <img src="https://sf-tb-sg.ibytedtos.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.png" alt="TikTok">
-                        <span>TikTok</span>
+                        <span data-kk="TikTok" data-ru="TikTok" data-tr="TikTok" data-en="TikTok">TikTok</span>
                     </button>
-                    <button class="ok-button" onclick="openIndexPage()" data-kk="Басты бетке" data-ru="На главную">На главную</button>
+                    <button class="ok-button" onclick="openIndexPage()" data-kk="Басты бетке" data-ru="На главную" data-tr="Ana sayfaya" data-en="To main page">На главную</button>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        function applyLanguage() {
-            const lang = localStorage.getItem('language') || 'kk';
-            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
-                el.textContent = el.getAttribute(`data-${lang}`);
-            });
-            document.documentElement.lang = lang;
-        }
-
-        function goBack() {
-            window.location.href = 'feedback_contact.html';
-        }
-
-        function openIndexPage() {
-            window.location.href = 'index.html';
-        }
-
-        function openSocialLink(platform) {
-            const urls = {
-                '2gis': 'https://2gis.kz/aktobe/firm/70000001093495690',
-                'instagram': 'https://www.instagram.com/afsona_family?igsh=MXY1MmY3M2Q4N3NqdQ==',
-                'tiktok': 'https://www.tiktok.com/@afsona.family?_t=ZM-8u4X5C5jbEN&_r=1'
-            };
-            window.open(urls[platform], '_blank');
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            applyLanguage();
+<script>
+    function applyLanguage() {
+        const lang = localStorage.getItem('language') || 'ru';
+        console.log('Applying language:', lang); // Для отладки
+        document.querySelectorAll('[data-kk][data-ru][data-tr][data-en]').forEach(el => {
+            el.textContent = el.getAttribute(`data-${lang}`);
         });
-    </script>
+        document.documentElement.lang = lang;
+    }
+
+    function goBack() {
+        window.location.href = 'feedback_contact.html';
+    }
+
+    function openIndexPage() {
+        window.location.href = 'index.html';
+    }
+
+    function openSocialLink(platform) {
+        const urls = {
+            '2gis': 'https://2gis.kz/aktobe/firm/70000001093495690',
+            'instagram': 'https://www.instagram.com/afsona_family?igsh=MXY1MmY3M2Q4N3NqdQ==',
+            'tiktok': 'https://www.tiktok.com/@afsona.family?_t=ZM-8u4X5C5jbEN&_r=1'
+        };
+        window.open(urls[platform], '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        applyLanguage();
+    });
+
+    window.addEventListener('storage', function(event) {
+        if (event.key === 'language') {
+            applyLanguage();
+        }
+    });
+
+    // Для отладки
+    window.onload = function() {
+        console.log('Page loaded. Current localStorage:', localStorage);
+    }
+</script>
 </body>
 </html>
