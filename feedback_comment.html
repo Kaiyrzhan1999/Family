@@ -182,12 +182,24 @@
             <img src="icon.png" alt="Логотип" class="logo">
         </div>
         <div class="main-content">
-            <p class="main-text">ВАШИ КОММЕНТАРИИ МНОГО ЗНАЧАТ ДЛЯ НАС!</p>
-            <textarea class="comment-box" placeholder="Комментарий оставьте здесь" id="commentText"></textarea>
-            <button class="continue-btn" onclick="saveCommentAndContinue()">Продолжить</button>
+            <p class="main-text" data-kk="СІЗДІҢ ПІКІРЛЕРІҢІЗ БІЗ ҮШІН ӨТЕ МАҢЫЗДЫ!" data-ru="ВАШИ КОММЕНТАРИИ МНОГО ЗНАЧАТ ДЛЯ НАС!">ВАШИ КОММЕНТАРИИ МНОГО ЗНАЧАТ ДЛЯ НАС!</p>
+            <textarea class="comment-box" id="commentText" data-kk-placeholder="Пікіріңізді осы жерге қалдырыңыз" data-ru-placeholder="Комментарий оставьте здесь"></textarea>
+            <button class="continue-btn" onclick="saveCommentAndContinue()" data-kk="Жалғастыру" data-ru="Продолжить">Продолжить</button>
         </div>
     </div>
     <script>
+        function applyLanguage() {
+            const lang = localStorage.getItem('language') || 'kk';
+            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${lang}`);
+            });
+            document.documentElement.lang = lang;
+
+            // Применяем перевод для placeholder текстового поля
+            const commentBox = document.getElementById('commentText');
+            commentBox.placeholder = commentBox.getAttribute(`data-${lang}-placeholder`);
+        }
+
         function goBack() {
             window.history.back();
         }
@@ -199,6 +211,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            applyLanguage();
             const savedComment = localStorage.getItem('feedbackComment');
             if (savedComment) {
                 document.getElementById('commentText').value = savedComment;
