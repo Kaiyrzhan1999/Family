@@ -182,15 +182,15 @@
             <img src="icon.png" alt="Логотип" class="logo">
         </div>
         <div class="main-content">
-            <p class="main-text" data-kk="СІЗДІҢ ПІКІРЛЕРІҢІЗ БІЗ ҮШІН ӨТЕ МАҢЫЗДЫ!" data-ru="ВАШИ КОММЕНТАРИИ МНОГО ЗНАЧАТ ДЛЯ НАС!">ВАШИ КОММЕНТАРИИ МНОГО ЗНАЧАТ ДЛЯ НАС!</p>
-            <textarea class="comment-box" id="commentText" data-kk-placeholder="Пікіріңізді осы жерге қалдырыңыз" data-ru-placeholder="Комментарий оставьте здесь"></textarea>
-            <button class="continue-btn" onclick="saveCommentAndContinue()" data-kk="Жалғастыру" data-ru="Продолжить">Продолжить</button>
+            <p class="main-text" data-kk="СІЗДІҢ ПІКІРЛЕРІҢІЗ БІЗ ҮШІН ӨТЕ МАҢЫЗДЫ!" data-ru="ВАШИ КОММЕНТАРИИ МНОГО ЗНАЧАТ ДЛЯ НАС!" data-tr="YORUMLARINIZ BİZİM İÇİN ÇOK ÖNEMLİ!" data-en="YOUR COMMENTS MEAN A LOT TO US!">ВАШИ КОММЕНТАРИИ МНОГО ЗНАЧАТ ДЛЯ НАС!</p>
+            <textarea class="comment-box" id="commentText" data-kk-placeholder="Пікіріңізді осы жерге қалдырыңыз" data-ru-placeholder="Комментарий оставьте здесь" data-tr-placeholder="Yorumunuzu buraya bırakın" data-en-placeholder="Leave your comment here"></textarea>
+            <button class="continue-btn" onclick="saveCommentAndContinue()" data-kk="Жалғастыру" data-ru="Продолжить" data-tr="Devam et" data-en="Continue">Продолжить</button>
         </div>
     </div>
     <script>
         function applyLanguage() {
             const lang = localStorage.getItem('language') || 'kk';
-            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+            document.querySelectorAll('[data-kk][data-ru][data-tr][data-en]').forEach(el => {
                 el.textContent = el.getAttribute(`data-${lang}`);
             });
             document.documentElement.lang = lang;
