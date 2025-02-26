@@ -223,9 +223,9 @@
                     <i class="far fa-grin-stars"></i>
                 </button>
             </div>
-            <div id="rating-text" data-kk="Өзіңізді қалай сезінесіз? Бізді бағалаңыз!" data-ru="Как вы себя чувствуете? Пожалуйста, оцените нас!">Как вы себя чувствуете? Пожалуйста, оцените нас!</div>
+            <div id="rating-text" data-kk="Өзіңізді қалай сезінесіз? Бізді бағалаңыз!" data-ru="Как вы себя чувствуете? Пожалуйста, оцените нас!" data-tr="Nasıl hissediyorsunuz? Lütfen bizi değerlendirin!" data-en="How do you feel? Please rate us!">Как вы себя чувствуете? Пожалуйста, оцените нас!</div>
         </div>
-        <button class="rate-button" disabled onclick="openFeedbackWindow()" data-kk="БАҒАЛАУДЫ ЖІБЕРУ" data-ru="ОТПРАВИТЬ ОЦЕНКУ">ОТПРАВИТЬ ОЦЕНКУ</button>
+        <button class="rate-button" disabled onclick="openFeedbackWindow()" data-kk="БАҒАЛАУДЫ ЖІБЕРУ" data-ru="ОТПРАВИТЬ ОЦЕНКУ" data-tr="DEĞERLENDİRME GÖNDER" data-en="SUBMIT RATING">ОТПРАВИТЬ ОЦЕНКУ</button>
     </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -247,6 +247,18 @@
                 2: "Были проблемы..",
                 3: "Могу сказать, что все было нормально..",
                 4: "Отличное обслуживание, спасибо!"
+            },
+            tr: {
+                1: "Bu kötü bir deneyimdi!",
+                2: "Bazı sorunlar vardı..",
+                3: "Her şeyin iyi olduğunu söyleyebilirim..",
+                4: "Harika hizmet, teşekkürler!"
+            },
+            en: {
+                1: "This was a bad experience!",
+                2: "There were some issues..",
+                3: "I can say everything was fine..",
+                4: "Excellent service, thank you!"
             }
         };
 
@@ -259,7 +271,7 @@
 
         function applyLanguage() {
             const lang = localStorage.getItem('language') || 'kk';
-            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+            document.querySelectorAll('[data-kk][data-ru][data-tr][data-en]').forEach(el => {
                 el.textContent = el.getAttribute(`data-${lang}`);
             });
             document.documentElement.lang = lang;
@@ -308,8 +320,13 @@
             window.location.href = 'feedback_window.html';
         } else {
             const lang = localStorage.getItem('language') || 'kk';
-            const alertMessage = lang === 'kk' ? 'Жалғастырмас бұрын бағалауды таңдаңыз.' : 'Пожалуйста, выберите оценку перед продолжением.';
-            alert(alertMessage);
+            const alertMessages = {
+                kk: 'Жалғастырмас бұрын бағалауды таңдаңыз.',
+                ru: 'Пожалуйста, выберите оценку перед продолжением.',
+                tr: 'Lütfen devam etmeden önce bir değerlendirme seçin.',
+                en: 'Please select a rating before continuing.'
+            };
+            alert(alertMessages[lang]);
         }
     }
 </script>
