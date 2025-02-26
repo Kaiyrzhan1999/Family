@@ -159,14 +159,27 @@
             <img src="icon.png" alt="Логотип" class="logo">
         </div>
         <div class="main-content">
-            <p class="main-text">ПОЖАЛУЙСТА, ЗАПОЛНИТЕ ИНФОРМАЦИЮ ЧТОБЫ МЫ БЫСТРО РЕАГИРОВАЛИ!</p>
-            <input type="tel" class="input-field" placeholder="Мобильный" id="mobileInput">
-            <input type="text" class="input-field" placeholder="Фамилия имя" id="nameInput">
-            <button class="continue-btn" onclick="submitFeedback()">Продолжить</button>
-            <p class="privacy-text">Мы обрабатываем данные, которыми вы поделились с нами, от имени Afsona family и не передаем ваши данные третьим лицам, кроме этой компании.</p>
+            <p class="main-text" data-kk="БІЗ ТЕЗ ЖАУАП БЕРУ ҮШІН АҚПАРАТТЫ ТОЛТЫРЫҢЫЗ!" data-ru="ПОЖАЛУЙСТА, ЗАПОЛНИТЕ ИНФОРМАЦИЮ ЧТОБЫ МЫ БЫСТРО РЕАГИРОВАЛИ!">ПОЖАЛУЙСТА, ЗАПОЛНИТЕ ИНФОРМАЦИЮ ЧТОБЫ МЫ БЫСТРО РЕАГИРОВАЛИ!</p>
+            <input type="tel" class="input-field" id="mobileInput" data-kk-placeholder="Ұялы телефон" data-ru-placeholder="Мобильный">
+            <input type="text" class="input-field" id="nameInput" data-kk-placeholder="Тегі аты" data-ru-placeholder="Фамилия имя">
+            <button class="continue-btn" onclick="submitFeedback()" data-kk="Жалғастыру" data-ru="Продолжить">Продолжить</button>
+            <p class="privacy-text" data-kk="Біз сіз бөліскен деректерді Afsona family атынан өңдейміз және сіздің деректеріңізді осы компаниядан басқа үшінші тараптарға бермейміз." data-ru="Мы обрабатываем данные, которыми вы поделились с нами, от имени Afsona family и не передаем ваши данные третьим лицам, кроме этой компании.">Мы обрабатываем данные, которыми вы поделились с нами, от имени Afsona family и не передаем ваши данные третьим лицам, кроме этой компании.</p>
         </div>
     </div>
     <script>
+        function applyLanguage() {
+            const lang = localStorage.getItem('language') || 'kk';
+            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${lang}`);
+            });
+            document.documentElement.lang = lang;
+
+            // Применяем перевод для placeholder полей ввода
+            document.querySelectorAll('.input-field').forEach(input => {
+                input.placeholder = input.getAttribute(`data-${lang}-placeholder`);
+            });
+        }
+
         function goBack() {
             window.location.href = 'feedback_comment.html';
         }
@@ -233,6 +246,8 @@ Afsona family
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            applyLanguage();
+
             var phoneInput = document.getElementById('mobileInput');
             var maskOptions = {
                 mask: '+{7}(000)000-00-00'
