@@ -141,21 +141,21 @@
             <img src="icon.png" alt="Логотип" class="logo">
         </div>
         <div class="main-content">
-            <p class="main-text" data-kk="Бүгін сізді не ренжітті?" data-ru="Что вас сегодня расстроило?">Что вас сегодня расстроило?</p>
+            <p class="main-text" data-kk="Бүгін сізді не ренжітті?" data-ru="Что вас сегодня расстроило?" data-tr="Bugün sizi ne üzdü?" data-en="What upset you today?">Что вас сегодня расстроило?</p>
             <div class="buttons-container">
-                <button class="reason-btn" onclick="openFeedbackComment('ДӘМІ ЖӘНЕ САПАСЫ')" data-kk="ДӘМІ ЖӘНЕ САПАСЫ" data-ru="ВКУС И КАЧЕСТВО">ВКУС И КАЧЕСТВО</button>
-                <button class="reason-btn" onclick="openFeedbackComment('ҚЫЗМЕТ КӨРСЕТУ ЖЫЛДАМДЫҒЫ')" data-kk="ҚЫЗМЕТ КӨРСЕТУ ЖЫЛДАМДЫҒЫ" data-ru="СКОРОСТЬ ОБСЛУЖИВАНИЯ">СКОРОСТЬ ОБСЛУЖИВАНИЯ</button>
-                <button class="reason-btn" onclick="openFeedbackComment('ҚЫЗМЕТКЕРЛЕР')" data-kk="ҚЫЗМЕТКЕРЛЕР" data-ru="ПЕРСОНАЛ">ПЕРСОНАЛ</button>
-                <button class="reason-btn" onclick="openFeedbackComment('ГИГИЕНА')" data-kk="ГИГИЕНА" data-ru="ГИГИЕНА">ГИГИЕНА</button>
-                <button class="reason-btn" onclick="openFeedbackComment('ЗАЛДАҒЫ САНИТАРИЯ')" data-kk="ЗАЛДАҒЫ САНИТАРИЯ" data-ru="САНИТАРИЯ В ЗАЛЕ">САНИТАРИЯ В ЗАЛЕ</button>
-                <button class="reason-btn" onclick="openFeedbackComment('БАСҚА (ҰСЫНЫС)')" data-kk="БАСҚА (ҰСЫНЫС)" data-ru="ДРУГОЕ (ПРЕДЛОЖЕНИЕ)">ДРУГОЕ (ПРЕДЛОЖЕНИЕ)</button>
+                <button class="reason-btn" onclick="openFeedbackComment('ВКУС И КАЧЕСТВО')" data-kk="ДӘМІ ЖӘНЕ САПАСЫ" data-ru="ВКУС И КАЧЕСТВО" data-tr="TAT VE KALİTE" data-en="TASTE AND QUALITY">ВКУС И КАЧЕСТВО</button>
+                <button class="reason-btn" onclick="openFeedbackComment('СКОРОСТЬ ОБСЛУЖИВАНИЯ')" data-kk="ҚЫЗМЕТ КӨРСЕТУ ЖЫЛДАМДЫҒЫ" data-ru="СКОРОСТЬ ОБСЛУЖИВАНИЯ" data-tr="HİZMET HIZI" data-en="SERVICE SPEED">СКОРОСТЬ ОБСЛУЖИВАНИЯ</button>
+                <button class="reason-btn" onclick="openFeedbackComment('ПЕРСОНАЛ')" data-kk="ҚЫЗМЕТКЕРЛЕР" data-ru="ПЕРСОНАЛ" data-tr="PERSONEL" data-en="STAFF">ПЕРСОНАЛ</button>
+                <button class="reason-btn" onclick="openFeedbackComment('ГИГИЕНА')" data-kk="ГИГИЕНА" data-ru="ГИГИЕНА" data-tr="HİJYEN" data-en="HYGIENE">ГИГИЕНА</button>
+                <button class="reason-btn" onclick="openFeedbackComment('САНИТАРИЯ В ЗАЛЕ')" data-kk="ЗАЛДАҒЫ САНИТАРИЯ" data-ru="САНИТАРИЯ В ЗАЛЕ" data-tr="SALON TEMİZLİĞİ" data-en="CLEANLINESS IN THE HALL">САНИТАРИЯ В ЗАЛЕ</button>
+                <button class="reason-btn" onclick="openFeedbackComment('ДРУГОЕ (ПРЕДЛОЖЕНИЕ)')" data-kk="БАСҚА (ҰСЫНЫС)" data-ru="ДРУГОЕ (ПРЕДЛОЖЕНИЕ)" data-tr="DİĞER (ÖNERİ)" data-en="OTHER (SUGGESTION)">ДРУГОЕ (ПРЕДЛОЖЕНИЕ)</button>
             </div>
         </div>
     </div>
     <script>
         function applyLanguage() {
             const lang = localStorage.getItem('language') || 'kk';
-            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+            document.querySelectorAll('[data-kk][data-ru][data-tr][data-en]').forEach(el => {
                 el.textContent = el.getAttribute(`data-${lang}`);
             });
             document.documentElement.lang = lang;
@@ -166,7 +166,46 @@
         }
 
         function openFeedbackComment(reason) {
-            localStorage.setItem('feedbackReason', reason);
+            const lang = localStorage.getItem('language') || 'kk';
+            const reasonTranslations = {
+                'ВКУС И КАЧЕСТВО': {
+                    'kk': 'ДӘМІ ЖӘНЕ САПАСЫ',
+                    'ru': 'ВКУС И КАЧЕСТВО',
+                    'tr': 'TAT VE KALİTE',
+                    'en': 'TASTE AND QUALITY'
+                },
+                'СКОРОСТЬ ОБСЛУЖИВАНИЯ': {
+                    'kk': 'ҚЫЗМЕТ КӨРСЕТУ ЖЫЛДАМДЫҒЫ',
+                    'ru': 'СКОРОСТЬ ОБСЛУЖИВАНИЯ',
+                    'tr': 'HİZMET HIZI',
+                    'en': 'SERVICE SPEED'
+                },
+                'ПЕРСОНАЛ': {
+                    'kk': 'ҚЫЗМЕТКЕРЛЕР',
+                    'ru': 'ПЕРСОНАЛ',
+                    'tr': 'PERSONEL',
+                    'en': 'STAFF'
+                },
+                'ГИГИЕНА': {
+                    'kk': 'ГИГИЕНА',
+                    'ru': 'ГИГИЕНА',
+                    'tr': 'HİJYEN',
+                    'en': 'HYGIENE'
+                },
+                'САНИТАРИЯ В ЗАЛЕ': {
+                    'kk': 'ЗАЛДАҒЫ САНИТАРИЯ',
+                    'ru': 'САНИТАРИЯ В ЗАЛЕ',
+                    'tr': 'SALON TEMİZLİĞİ',
+                    'en': 'CLEANLINESS IN THE HALL'
+                },
+                'ДРУГОЕ (ПРЕДЛОЖЕНИЕ)': {
+                    'kk': 'БАСҚА (ҰСЫНЫС)',
+                    'ru': 'ДРУГОЕ (ПРЕДЛОЖЕНИЕ)',
+                    'tr': 'DİĞER (ÖNERİ)',
+                    'en': 'OTHER (SUGGESTION)'
+                }
+            };
+            localStorage.setItem('feedbackReason', reasonTranslations[reason][lang]);
             window.location.href = 'feedback_comment.html';
         }
 
