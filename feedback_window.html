@@ -196,26 +196,26 @@
             <img src="icon.png" alt="Логотип" class="logo">
         </div>
         <div class="main-content">
-            <p class="main-text" data-kk="Сіздің пікірлеріңіз бойынша ең жақсы нәтижелерге қол жеткізу үшін қажетті ақпарат" data-ru="Информация, необходимая для достижения лучших результатов по вашим отзывам">Информация, необходимая для достижения лучших результатов по вашим отзывам</p>
-            <p class="sub-text" data-kk="Үстел нөмірін таңдау" data-ru="Выбор номера столика">Выбор номера столика</p>
+            <p class="main-text" data-kk="Сіздің пікірлеріңіз бойынша ең жақсы нәтижелерге қол жеткізу үшін қажетті ақпарат" data-ru="Информация, необходимая для достижения лучших результатов по вашим отзывам" data-tr="Görüşlerinize göre en iyi sonuçları elde etmek için gerekli bilgiler" data-en="Information needed to achieve the best results based on your feedback">Информация, необходимая для достижения лучших результатов по вашим отзывам</p>
+            <p class="sub-text" data-kk="Үстел нөмірін таңдау" data-ru="Выбор номера столика" data-tr="Masa numarası seçimi" data-en="Table number selection">Выбор номера столика</p>
 
             <div class="floor-select-container">
                 <select class="floor-select" id="floorSelect">
-                    <option value="" data-kk="Алдымен қабатты таңдаңыз" data-ru="Сначала выберите этаж">Сначала выберите этаж</option>
-                    <option value="1" data-kk="1 қабат" data-ru="1 этаж">1 этаж</option>
-                    <option value="2" data-kk="2 қабат" data-ru="2 этаж">2 этаж</option>
-                    <option value="vip0" data-kk="VIP 0 қабат" data-ru="VIP 0 этаж">VIP 0 этаж</option>
-                    <option value="vip2" data-kk="VIP 2 қабат" data-ru="VIP 2 этаж">VIP 2 этаж</option>
+                    <option value="" data-kk="Алдымен қабатты таңдаңыз" data-ru="Сначала выберите этаж" data-tr="Önce katı seçin" data-en="First select the floor">Сначала выберите этаж</option>
+                    <option value="1" data-kk="1 қабат" data-ru="1 этаж" data-tr="1. kat" data-en="1st floor">1 этаж</option>
+                    <option value="2" data-kk="2 қабат" data-ru="2 этаж" data-tr="2. kat" data-en="2nd floor">2 этаж</option>
+                    <option value="vip0" data-kk="VIP 0 қабат" data-ru="VIP 0 этаж" data-tr="VIP 0. kat" data-en="VIP 0 floor">VIP 0 этаж</option>
+                    <option value="vip2" data-kk="VIP 2 қабат" data-ru="VIP 2 этаж" data-tr="VIP 2. kat" data-en="VIP 2 floor">VIP 2 этаж</option>
                 </select>
             </div>
 
             <div class="dropdown">
-                <button class="dropbtn" data-kk="Үстел нөмірін таңдаңыз" data-ru="Выберите номер столика">Выберите номер столика</button>
+                <button class="dropbtn" data-kk="Үстел нөмірін таңдаңыз" data-ru="Выберите номер столика" data-tr="Masa numarasını seçin" data-en="Select table number">Выберите номер столика</button>
                 <div class="dropdown-content" id="tableDropdown">
-                    <!-- Опции будут добавлены с помощью JavaScript -->
+                    <!-- Options will be added with JavaScript -->
                 </div>
             </div>
-            <button class="continue-btn" onclick="openFeedbackReasons()" data-kk="Жалғастыру" data-ru="Продолжить">Продолжить</button>
+            <button class="continue-btn" onclick="openFeedbackReasons()" data-kk="Жалғастыру" data-ru="Продолжить" data-tr="Devam et" data-en="Continue">Продолжить</button>
         </div>
     </div>
     <script>
@@ -234,7 +234,7 @@
 
             function applyLanguage() {
                 const lang = localStorage.getItem('language') || 'kk';
-                document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+                document.querySelectorAll('[data-kk][data-ru][data-tr][data-en]').forEach(el => {
                     el.textContent = el.getAttribute(`data-${lang}`);
                 });
                 document.documentElement.lang = lang;
@@ -277,14 +277,24 @@
         function openFeedbackReasons() {
             const tableNumber = document.querySelector('.dropbtn').textContent;
             const lang = localStorage.getItem('language') || 'kk';
-            const defaultText = lang === 'kk' ? 'Үстел нөмірін таңдаңыз' : 'Выберите номер столика';
-            if (tableNumber !== defaultText) {
+            const defaultTexts = {
+                'kk': 'Үстел нөмірін таңдаңыз',
+                'ru': 'Выберите номер столика',
+                'tr': 'Masa numarasını seçin',
+                'en': 'Select table number'
+            };
+            if (tableNumber !== defaultTexts[lang]) {
                 localStorage.setItem('tableNumber', tableNumber);
                 console.log('Table number saved:', tableNumber);
                 window.location.href = 'feedback_reasons.html';
             } else {
-                const alertMessage = lang === 'kk' ? 'Жалғастырмас бұрын үстел нөмірін таңдаңыз.' : 'Пожалуйста, выберите номер столика перед продолжением.';
-                alert(alertMessage);
+                const alertMessages = {
+                    'kk': 'Жалғастырмас бұрын үстел нөмірін таңдаңыз.',
+                    'ru': 'Пожалуйста, выберите номер столика перед продолжением.',
+                    'tr': 'Lütfen devam etmeden önce bir masa numarası seçin.',
+                    'en': 'Please select a table number before continuing.'
+                };
+                alert(alertMessages[lang]);
             }
         }
 
