@@ -152,8 +152,8 @@
 <body>
     <div class="main-container">
         <img src="afood_logo.png" alt="AFood Logo" class="logo">
-        <h1 data-kk="AktobeFood қосымшасын орнатыңыз" data-ru="Установите приложение AktobeFood">Установите приложение AktobeFood</h1>
-        <p data-kk="Осы қосымшада тапсырыс бере алатын мейрамханалар:" data-ru="Рестораны, которые вы можете заказать в этом приложении:">Рестораны, которые вы можете заказать в этом приложении:</p>
+        <h1 data-kk="AktobeFood қосымшасын орнатыңыз" data-ru="Установите приложение AktobeFood" data-tr="AktobeFood uygulamasını yükleyin" data-en="Install the AktobeFood app">Установите приложение AktobeFood</h1>
+        <p data-kk="Осы қосымшада тапсырыс бере алатын мейрамханалар:" data-ru="Рестораны, которые вы можете заказать в этом приложении:" data-tr="Bu uygulamada sipariş verebileceğiniz restoranlar:" data-en="Restaurants you can order from in this app:">Рестораны, которые вы можете заказать в этом приложении:</p>
         <div class="restaurant-logos">
             <img src="01 (2).png" alt="Restaurant 1" class="restaurant-logo">
             <img src="sarqyt logo.png" alt="Sarqyt" class="restaurant-logo">
@@ -174,13 +174,13 @@
         </div>
     </div>
     <div class="nav-buttons">
-        <a href="index.html" class="nav-button" data-kk="Басты бетке" data-ru="На главную">На главную</a>
-        <a href="menu.html" class="nav-button" data-kk="Мәзірді ашу" data-ru="Открыть меню">Открыть меню</a>
+        <a href="index.html" class="nav-button" data-kk="Басты бетке" data-ru="На главную" data-tr="Ana Sayfa" data-en="Home">На главную</a>
+        <a href="menu.html" class="nav-button" data-kk="Мәзірді ашу" data-ru="Открыть меню" data-tr="Menüyü Aç" data-en="Open Menu">Открыть меню</a>
     </div>
     <script>
         function applyLanguage() {
             const lang = localStorage.getItem('language') || 'kk';
-            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+            document.querySelectorAll('[data-kk][data-ru][data-tr][data-en]').forEach(el => {
                 el.textContent = el.getAttribute(`data-${lang}`);
             });
             document.documentElement.lang = lang;
@@ -190,17 +190,22 @@
             applyLanguage();
         });
 
-        // Добавьте эту функцию для переключения языка
         function toggleLanguage() {
+            const languages = ['kk', 'ru', 'tr', 'en'];
             const currentLang = localStorage.getItem('language') || 'kk';
-            const newLang = currentLang === 'kk' ? 'ru' : 'kk';
+            const currentIndex = languages.indexOf(currentLang);
+            const newLang = languages[(currentIndex + 1) % languages.length];
             localStorage.setItem('language', newLang);
             applyLanguage();
+            updateLanguageToggleButton();
         }
 
-        // Добавьте кнопку для переключения языка
+        function updateLanguageToggleButton() {
+            const currentLang = localStorage.getItem('language') || 'kk';
+            languageToggle.textContent = currentLang.toUpperCase();
+        }
+
         const languageToggle = document.createElement('button');
-        languageToggle.textContent = 'KK/RU';
         languageToggle.style.position = 'fixed';
         languageToggle.style.top = '10px';
         languageToggle.style.right = '10px';
@@ -210,8 +215,10 @@
         languageToggle.style.border = 'none';
         languageToggle.style.borderRadius = '5px';
         languageToggle.style.cursor = 'pointer';
+        languageToggle.style.zIndex = '1001';
         languageToggle.onclick = toggleLanguage;
         document.body.appendChild(languageToggle);
+        updateLanguageToggleButton();
     </script>
 </body>
 </html>
