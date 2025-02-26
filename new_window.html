@@ -21,7 +21,7 @@
             background: linear-gradient(45deg, #FF0000, #FFA500, #008000, #0000FF);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            height: 15vh;
+            height: clamp(2.5rem, 8vh, 4rem);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -223,9 +223,9 @@
                     <i class="far fa-grin-stars"></i>
                 </button>
             </div>
-            <div id="rating-text">Как вы себя чувствуете? Пожалуйста, оцените нас!</div>
+            <div id="rating-text" data-kk="Өзіңізді қалай сезінесіз? Бізді бағалаңыз!" data-ru="Как вы себя чувствуете? Пожалуйста, оцените нас!">Как вы себя чувствуете? Пожалуйста, оцените нас!</div>
         </div>
-        <button class="rate-button" disabled onclick="openFeedbackWindow()">ОТПРАВИТЬ ОЦЕНКУ</button>
+        <button class="rate-button" disabled onclick="openFeedbackWindow()" data-kk="БАҒАЛАУДЫ ЖІБЕРУ" data-ru="ОТПРАВИТЬ ОЦЕНКУ">ОТПРАВИТЬ ОЦЕНКУ</button>
     </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -235,42 +235,61 @@
         const backButton = document.getElementById('backButton');
         let selectedRating = null;
 
-            const ratingTexts = {
+        const ratingTexts = {
+            kk: {
+                1: "Бұл жаман тәжірибе болды!",
+                2: "Мәселелер болды..",
+                3: "Бәрі жақсы болды деп айта аламын..",
+                4: "Керемет қызмет, рахмет!"
+            },
+            ru: {
                 1: "Это был плохой опыт!",
                 2: "Были проблемы..",
                 3: "Могу сказать, что все было нормально..",
                 4: "Отличное обслуживание, спасибо!"
-            };
+            }
+        };
 
-            const smileyIcons = {
-                1: "\uf556", // frown
-                2: "\uf11a", // meh
-                3: "\uf118", // smile
-                4: "\uf587"  // grin-stars
-            };
+        const smileyIcons = {
+            1: "\uf556", // frown
+            2: "\uf11a", // meh
+            3: "\uf118", // smile
+            4: "\uf587"  // grin-stars
+        };
 
-            smileys.forEach(smiley => {
-                const rating = smiley.dataset.rating;
-                smiley.setAttribute('data-icon', smileyIcons[rating]);
-
-                smiley.addEventListener('click', function() {
-                    smileys.forEach(s => {
-                        s.classList.remove('active');
-                        s.style.animation = '';
-                        s.style.color = 'gray';
-                    });
-                    this.classList.add('active');
-                    selectedRating = this.dataset.rating;
-                    this.style.color = this.dataset.color;
-                    rateButton.style.backgroundColor = this.dataset.color;
-                    rateButton.disabled = false;
-
-                    ratingText.textContent = ratingTexts[selectedRating];
-                    ratingText.style.color = this.dataset.color;
-
-                    this.style.animation = 'bounce 0.5s';
-                });
+        function applyLanguage() {
+            const lang = localStorage.getItem('language') || 'kk';
+            document.querySelectorAll('[data-kk][data-ru]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${lang}`);
             });
+            document.documentElement.lang = lang;
+        }
+
+        applyLanguage();
+
+        smileys.forEach(smiley => {
+            const rating = smiley.dataset.rating;
+            smiley.setAttribute('data-icon', smileyIcons[rating]);
+
+            smiley.addEventListener('click', function() {
+                smileys.forEach(s => {
+                    s.classList.remove('active');
+                    s.style.animation = '';
+                    s.style.color = 'gray';
+                });
+                this.classList.add('active');
+                selectedRating = this.dataset.rating;
+                this.style.color = this.dataset.color;
+                rateButton.style.backgroundColor = this.dataset.color;
+                rateButton.disabled = false;
+
+                const lang = localStorage.getItem('language') || 'kk';
+                ratingText.textContent = ratingTexts[lang][selectedRating];
+                ratingText.style.color = this.dataset.color;
+
+                this.style.animation = 'bounce 0.5s';
+            });
+        });
 
         rateButton.addEventListener('click', function() {
             openFeedbackWindow();
@@ -288,7 +307,9 @@
             localStorage.setItem('selectedEmoji', selectedRating);
             window.location.href = 'feedback_window.html';
         } else {
-            alert('Пожалуйста, выберите оценку перед продолжением.');
+            const lang = localStorage.getItem('language') || 'kk';
+            const alertMessage = lang === 'kk' ? 'Жалғастырмас бұрын бағалауды таңдаңыз.' : 'Пожалуйста, выберите оценку перед продолжением.';
+            alert(alertMessage);
         }
     }
 </script>
